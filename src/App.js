@@ -109,6 +109,245 @@ const jobOrderNotifications = [
 ];
 
 
+/* ── Process Payroll Modal ── */
+function ProcessPayrollModal({ onClose, onProcess }) {
+  const [step, setStep] = useState(1);
+  const [period, setPeriod] = useState('2nd');
+  const [month, setMonth] = useState('June');
+  const [year, setYear] = useState('2025');
+  const [processing, setProcessing] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handler = e => { if (e.key === 'Escape' && !processing) onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onClose, processing]);
+
+  const handleProcess = () => {
+    setProcessing(true);
+    setProgress(0);
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            setProcessing(false);
+            setStep(3);
+          }, 500);
+          return 100;
+        }
+        return prev + 10;
+      });
+    }, 300);
+  };
+
+  const periodLabel = period === '1st' ? '1–15' : '16–30';
+  const payDate = period === '1st' ? `${month.slice(0, 3)} 15, ${year}` : `${month.slice(0, 3)} 30, ${year}`;
+
+  return (
+    <div className="modal-overlay" onClick={!processing ? onClose : undefined}>
+      <div className="modal-box modal-lg" onClick={e => e.stopPropagation()} style={{ maxWidth: 600 }}>
+        <div className="modal-header">
+          <div>
+            <span className="modal-eyebrow">PAYROLL PROCESSING</span>
+            <h3 className="modal-title">
+              {step === 1 && 'Select Payroll Period'}
+              {step === 2 && 'Confirm & Process'}
+              {step === 3 && 'Processing Complete'}
+            </h3>
+            <p className="modal-sub">
+              {step === 1 && 'Choose the payroll period to process'}
+              {step === 2 && `${month} ${periodLabel}, ${year} · Pay Date: ${payDate}`}
+              {step === 3 && 'Payroll has been successfully processed'}
+            </p>
+          </div>
+          {!processing && (
+            <button className="modal-close" onClick={onClose}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          )}
+        </div>
+
+        <div className="modal-body" style={{ minHeight: 280 }}>
+          {step === 1 && (
+            <div>
+              <div className="form-grid">
+                <div className="form-field">
+                  <label>Pay Period</label>
+                  <select value={period} onChange={e => setPeriod(e.target.value)} className="settings-select">
+                    <option value="1st">1st Half (1–15)</option>
+                    <option value="2nd">2nd Half (16–30)</option>
+                  </select>
+                </div>
+                <div className="form-field">
+                  <label>Month</label>
+                  <select value={month} onChange={e => setMonth(e.target.value)} className="settings-select">
+                    {MONTHS.map(m => <option key={m}>{m}</option>)}
+                  </select>
+                </div>
+                <div className="form-field">
+                  <label>Year</label>
+                  <select value={year} onChange={e => setYear(e.target.value)} className="settings-select">
+                    <option>2025</option>
+                    <option>2024</option>
+                    <option>2023</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style={{ background: '#f7f6ff', borderRadius: 12, padding: '16px 20px', marginTop: 20 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: 'linear-gradient(135deg, #0b044d 0%, #2d1a8e 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontSize: 13, fontWeight: 700, color: '#0b044d', marginBottom: 2 }}>Selected Period</p>
+                    <p style={{ fontSize: 12, color: '#6b6a8a' }}>{month} {periodLabel}, {year}</p>
+                  </div>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, paddingTop: 12, borderTop: '1px solid #eceaf8' }}>
+                  <div>
+                    <p style={{ fontSize: 11, color: '#9999bb', marginBottom: 4 }}>Pay Date</p>
+                    <p style={{ fontSize: 13, fontWeight: 600, color: '#0b044d' }}>{payDate}</p>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 11, color: '#9999bb', marginBottom: 4 }}>Employees</p>
+                    <p style={{ fontSize: 13, fontWeight: 600, color: '#0b044d' }}>348 personnel</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {step === 2 && (
+            <div>
+              {!processing ? (
+                <div>
+                  <div style={{ background: '#fff5e6', border: '1.5px solid #fbbf24', borderRadius: 12, padding: '16px 20px', marginBottom: 20 }}>
+                    <div style={{ display: 'flex', gap: 12 }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d9bb00" strokeWidth="2.5" style={{ flexShrink: 0, marginTop: 2 }}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                      <div>
+                        <p style={{ fontSize: 13, fontWeight: 700, color: '#a16207', marginBottom: 4 }}>Confirm Payroll Processing</p>
+                        <p style={{ fontSize: 12, color: '#6b6a8a', lineHeight: 1.6 }}>You are about to process payroll for <strong>{month} {periodLabel}, {year}</strong>. This will calculate salaries, deductions, and generate payslips for all 348 employees. This action cannot be undone.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+                    {[
+                      { label: 'Total Employees', value: '348', icon: 'users', color: '#0b044d' },
+                      { label: 'Gross Payroll', value: '₱2.4M', icon: 'dollarSign', color: '#15803d' },
+                      { label: 'Total Deductions', value: '₱486K', icon: 'minus', color: '#8e1e18' },
+                      { label: 'Net Payroll', value: '₱1.9M', icon: 'checkCircle', color: '#d9bb00' },
+                    ].map((item, i) => (
+                      <div key={i} style={{ background: '#f7f6ff', borderRadius: 10, padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 12 }}>
+                        <div style={{ width: 36, height: 36, borderRadius: 9, background: item.color + '18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={item.color} strokeWidth="2.5">
+                            {item.icon === 'users' && <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>}
+                            {item.icon === 'dollarSign' && <><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>}
+                            {item.icon === 'minus' && <line x1="5" y1="12" x2="19" y2="12"/>}
+                            {item.icon === 'checkCircle' && <><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></>}
+                          </svg>
+                        </div>
+                        <div>
+                          <p style={{ fontSize: 11, color: '#9999bb', marginBottom: 2 }}>{item.label}</p>
+                          <p style={{ fontSize: 15, fontWeight: 800, color: item.color }}>{item.value}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+                  <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'linear-gradient(135deg, #0b044d 0%, #2d1a8e 100%)', margin: '0 auto 20px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" style={{ animation: 'spin 2s linear infinite' }}><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                  </div>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0b044d', marginBottom: 8 }}>Processing Payroll...</h3>
+                  <p style={{ fontSize: 13, color: '#6b6a8a', marginBottom: 20 }}>Calculating salaries and generating payslips</p>
+                  <div style={{ width: '100%', height: 8, background: '#f0effe', borderRadius: 99, overflow: 'hidden' }}>
+                    <div style={{ width: `${progress}%`, height: '100%', background: 'linear-gradient(90deg, #0b044d, #2d1a8e)', borderRadius: 99, transition: 'width 0.3s' }} />
+                  </div>
+                  <p style={{ fontSize: 12, color: '#9999bb', marginTop: 12 }}>{progress}% complete</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {step === 3 && (
+            <div style={{ textAlign: 'center', padding: '20px' }}>
+              <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'linear-gradient(135deg, #15803d 0%, #22c55e 100%)', margin: '0 auto 20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: '#0b044d', marginBottom: 8 }}>Payroll Processed Successfully!</h3>
+              <p style={{ fontSize: 13, color: '#6b6a8a', marginBottom: 24 }}>Payslips have been generated for all employees</p>
+              
+              <div style={{ background: '#f7f6ff', borderRadius: 12, padding: '20px', marginBottom: 20 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+                  <div>
+                    <p style={{ fontSize: 11, color: '#9999bb', marginBottom: 4 }}>Period</p>
+                    <p style={{ fontSize: 14, fontWeight: 700, color: '#0b044d' }}>{month} {periodLabel}, {year}</p>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 11, color: '#9999bb', marginBottom: 4 }}>Pay Date</p>
+                    <p style={{ fontSize: 14, fontWeight: 700, color: '#0b044d' }}>{payDate}</p>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 11, color: '#9999bb', marginBottom: 4 }}>Employees</p>
+                    <p style={{ fontSize: 14, fontWeight: 700, color: '#15803d' }}>348 processed</p>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 11, color: '#9999bb', marginBottom: 4 }}>Net Payroll</p>
+                    <p style={{ fontSize: 14, fontWeight: 700, color: '#15803d' }}>₱1,914,300</p>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
+                <button className="modal-btn-ghost" onClick={onClose} style={{ flex: 1 }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download Report
+                </button>
+                <button className="modal-btn-primary" onClick={onClose} style={{ flex: 1 }}>Done</button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {step < 3 && (
+          <div className="modal-footer">
+            {step === 1 && (
+              <>
+                <button className="modal-btn-ghost" onClick={onClose}>Cancel</button>
+                <button className="modal-btn-primary" onClick={() => setStep(2)}>
+                  Continue
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+              </>
+            )}
+            {step === 2 && !processing && (
+              <>
+                <button className="modal-btn-ghost" onClick={() => setStep(1)}>Back</button>
+                <button className="modal-btn-primary" onClick={handleProcess} style={{ background: '#15803d' }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Process Payroll
+                </button>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 /* ── Notifications Dropdown ── */
 function NotifDropdown({ notifs, onClose, onMarkRead }) {
   const ref = useRef();
@@ -174,6 +413,7 @@ function App() {
     { from: 'bot', text: 'Hello! I\'m the PRIME HRIS Assistant. How can I help you today? You can ask me about payroll, attendance, leave management, or any HR-related queries.' }
   ]);
   const [chatInput, setChatInput]   = useState('');
+  const [showProcessPayroll, setShowProcessPayroll] = useState(false);
   const [accounts, setAccounts]         = useState({
     'admin@gmail.com':     { role: 'admin',     password: 'pass' },
     'permanent@gmail.com': { role: 'employee',  password: 'pass' },
@@ -430,8 +670,8 @@ function App() {
               )}
             </div>
 
-            {role === 'admin' && (
-              <button className="btn-run-payroll" onClick={() => {}}>
+            {role === 'admin' && (active === 'dashboard' || active === 'payroll') && (
+              <button className="btn-run-payroll" onClick={() => setShowProcessPayroll(true)}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 Process Payroll
               </button>
@@ -713,6 +953,17 @@ function App() {
             </div>
           )}
         </>
+      )}
+
+      {/* ── Process Payroll Modal ── */}
+      {showProcessPayroll && (
+        <ProcessPayrollModal
+          onClose={() => setShowProcessPayroll(false)}
+          onProcess={() => {
+            setShowProcessPayroll(false);
+            setNotifs(prev => [{ id: Date.now(), type: 'info', title: 'Payroll Processed', desc: 'Payroll has been successfully processed for all employees.', time: 'Just now', read: false }, ...prev]);
+          }}
+        />
       )}
     </div>
   );

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../../components/Icons';
 
 const avatarColors = ['#0b044d', '#8e1e18', '#1a0f6e', '#5a0f0b', '#2d1a8e', '#6b3fa0'];
 const initials = name => name.split(' ').filter(n => /^[A-Z]/.test(n)).map(n => n[0]).join('').slice(0, 2).toUpperCase();
@@ -199,16 +200,16 @@ export default function Attendance({ searchQuery = '' }) {
       {/* Stats */}
       <div className="stats-grid" style={{ marginBottom: 20 }}>
         {[
-          { label: 'DTR Submitted',    value: completeCount,   sub: `${incompleteCount} incomplete`,  accent: '#0b044d' },
-          { label: 'Total Present',    value: totalPresent,    sub: `${period}`,                      accent: '#15803d' },
-          { label: 'Total Absences',   value: totalAbsent,     sub: 'Across all personnel',           accent: '#8e1e18' },
-          { label: 'Overtime Hours',   value: `${totalOT} hrs`,sub: `${totalLate} late arrivals`,     accent: '#d9bb00' },
+          { label: 'DTR Submitted',    value: completeCount,   sub: `${incompleteCount} incomplete`,  accent: '#0b044d', icon: 'calendar' },
+          { label: 'Total Present',    value: totalPresent,    sub: `${period}`,                      accent: '#15803d', icon: 'checkCircle' },
+          { label: 'Total Absences',   value: totalAbsent,     sub: 'Across all personnel',           accent: '#8e1e18', icon: 'xCircle' },
+          { label: 'Overtime Hours',   value: `${totalOT} hrs`,sub: `${totalLate} late arrivals`,     accent: '#d9bb00', icon: 'clock' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '18' }}>
-                <span style={{ fontSize: 16 }}>🗓</span>
+                <Icon name={s.icon} size={16} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value" style={{ fontSize: 22 }}>{s.value}</h2>

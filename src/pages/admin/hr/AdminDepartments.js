@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../../components/Icons';
 
 const departments = [
   { code: 'OM',     name: 'Office of the Mayor',                       head: 'Hon. Mayor',               personnel: 42, status: 'Active' },
@@ -48,19 +49,15 @@ export default function Departments({ searchQuery = '' }) {
       {/* Stats */}
       <div className="stats-grid" style={{ marginBottom: 20 }}>
         {[
-          { label: 'Total Departments', value: departments.length,                                    sub: 'All offices',           accent: '#0b044d',
-            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> },
-          { label: 'Total Personnel',   value: totalPersonnel,                                        sub: 'Across all offices',    accent: '#15803d',
-            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
-          { label: 'Active Offices',    value: departments.filter(d => d.status === 'Active').length, sub: 'Operational units',      accent: '#d9bb00',
-            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> },
-          { label: 'Largest Office',    value: largestDept.personnel,                                 sub: largestDept.code,        accent: '#8e1e18',
-            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> },
+          { label: 'Total Departments', value: departments.length,                                    sub: 'All offices',           accent: '#0b044d', icon: 'building' },
+          { label: 'Total Personnel',   value: totalPersonnel,                                        sub: 'Across all offices',    accent: '#15803d', icon: 'users' },
+          { label: 'Active Offices',    value: departments.filter(d => d.status === 'Active').length, sub: 'Operational units',      accent: '#d9bb00', icon: 'checkCircle' },
+          { label: 'Largest Office',    value: largestDept.personnel,                                 sub: largestDept.code,        accent: '#8e1e18', icon: 'trendingUp' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
-              <div className="stat-icon-wrap" style={{ background: s.accent + '15', color: s.accent }}>{s.icon}</div>
+              <div className="stat-icon-wrap" style={{ background: s.accent + '15', color: s.accent }}><Icon name={s.icon} size={18} /></div>
             </div>
             <h2 className="stat-value">{s.value}</h2>
             <div className="stat-footer">
@@ -80,7 +77,7 @@ export default function Departments({ searchQuery = '' }) {
           </div>
           <div className="table-actions">
             <button className="btn-export">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <Icon name="download" size={13} />
               Export
             </button>
           </div>
@@ -174,14 +171,14 @@ export default function Departments({ searchQuery = '' }) {
                 </div>
               </div>
               <button className="modal-close" onClick={() => setSelected(null)}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <Icon name="x" size={16} />
               </button>
             </div>
             <div className="modal-body">
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', marginBottom: '16px' }}>
                 <div style={{ background: '#f7f6ff', borderRadius: '10px', padding: '14px 16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'linear-gradient(135deg, #0b044d 0%, #2d1a8e 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    <Icon name="building" size={16} color="#fff" />
                   </div>
                   <div>
                     <p style={{ fontSize: '11px', color: '#9999bb', marginBottom: '2px' }}>Office Code</p>
@@ -190,7 +187,7 @@ export default function Departments({ searchQuery = '' }) {
                 </div>
                 <div style={{ background: '#f7f6ff', borderRadius: '10px', padding: '14px 16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'linear-gradient(135deg, #15803d 0%, #22c55e 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    <Icon name="users" size={16} color="#fff" />
                   </div>
                   <div>
                     <p style={{ fontSize: '11px', color: '#9999bb', marginBottom: '2px' }}>Total Personnel</p>

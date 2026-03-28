@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../../components/Icons';
 
 const initialJobs = [
   { id: 'JOB-001', title: 'Administrative Officer IV', dept: 'Office of the Mayor', type: 'Permanent', slots: 1, applicants: 12, status: 'Open', posted: 'Jun 1, 2025', deadline: 'Jun 30, 2025' },
@@ -147,16 +148,16 @@ export default function AdminRecruitment({ searchQuery = '' }) {
 
       <div className="stats-grid" style={{ marginBottom: 24 }}>
         {[
-          { label: 'Total Job Postings', value: jobs.length, sub: 'All positions', accent: '#0b044d', icon: '👥' },
-          { label: 'Open Positions', value: totalOpen, sub: 'Currently accepting', accent: '#15803d', icon: '✓' },
-          { label: 'Total Applicants', value: totalApplicants, sub: 'All applications', accent: '#d9bb00', icon: '📝' },
-          { label: 'Available Slots', value: totalSlots, sub: 'Positions to fill', accent: '#8e1e18', icon: '🎯' },
+          { label: 'Total Job Postings', value: jobs.length, sub: 'All positions', accent: '#0b044d', icon: 'briefcase' },
+          { label: 'Open Positions', value: totalOpen, sub: 'Currently accepting', accent: '#15803d', icon: 'checkCircle' },
+          { label: 'Total Applicants', value: totalApplicants, sub: 'All applications', accent: '#d9bb00', icon: 'users' },
+          { label: 'Available Slots', value: totalSlots, sub: 'Positions to fill', accent: '#8e1e18', icon: 'target' },
         ].map((s, i) => (
           <div className="stat-card" key={i} style={{ '--accent-color': s.accent }}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '18' }}>
-                <span style={{ fontSize: 18 }}>{s.icon}</span>
+                <Icon name={s.icon} size={18} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value">{s.value}</h2>
@@ -179,7 +180,7 @@ export default function AdminRecruitment({ searchQuery = '' }) {
               display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s'
             }}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            <Icon name="grid" size={14} />
             Grid View
           </button>
           <button
@@ -191,7 +192,7 @@ export default function AdminRecruitment({ searchQuery = '' }) {
               display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s'
             }}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <Icon name="list" size={14} />
             List View
           </button>
         </div>
@@ -205,11 +206,11 @@ export default function AdminRecruitment({ searchQuery = '' }) {
             <option>Closed</option>
           </select>
           <button className="btn-export">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <Icon name="download" size={13} color="currentColor" />
             Export
           </button>
           <button className="modal-btn-primary" style={{ padding: '7px 16px', fontSize: 12.5 }} onClick={() => setAddOpen(true)}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <Icon name="plus" size={13} color="currentColor" />
             Post Job
           </button>
         </div>

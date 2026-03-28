@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import { Icon } from '../../../components/Icons';
 import './AdminSettings.css';
 
 const TABS = [
-  { id: 'profile',       label: 'Profile',          icon: '👤' },
-  { id: 'system',        label: 'System',           icon: '⚙' },
-  { id: 'security',      label: 'Security',         icon: '🔒' },
-  { id: 'notifications', label: 'Notifications',    icon: '🔔' },
-  { id: 'requests',      label: 'Account Requests', icon: '📋' },
+  { id: 'profile',       label: 'Profile',          icon: 'user' },
+  { id: 'system',        label: 'System',           icon: 'settings' },
+  { id: 'security',      label: 'Security',         icon: 'shield' },
+  { id: 'notifications', label: 'Notifications',    icon: 'bell' },
+  { id: 'requests',      label: 'Account Requests', icon: 'clipboard' },
 ];
 
 function Section({ title, children }) {
@@ -316,7 +317,7 @@ export default function Settings({ requests = [], onApprove, onReject }) {
               onClick={() => setTab(t.id)}
               className={`settings-nav-item ${tab === t.id ? 'active' : ''}`}
             >
-              <span className="settings-nav-icon">{t.icon}</span>
+              <span className="settings-nav-icon"><Icon name={t.icon} size={16} color={tab === t.id ? '#fff' : '#6b6a8a'} /></span>
               <span className="settings-nav-label">{t.label}</span>
               {t.id === 'requests' && pendingCount > 0 && (
                 <span className="settings-nav-badge">{pendingCount}</span>
@@ -332,7 +333,7 @@ export default function Settings({ requests = [], onApprove, onReject }) {
 
         <div className="settings-tip">
           <div className="settings-tip-header">
-            <span className="settings-tip-icon">🔒</span>
+            <span className="settings-tip-icon"><Icon name="shield" size={16} color="#6b3fa0" /></span>
             <p className="settings-tip-title">SECURITY TIP</p>
           </div>
           <p className="settings-tip-text">Enable 2FA and use a strong password to protect your admin account.</p>

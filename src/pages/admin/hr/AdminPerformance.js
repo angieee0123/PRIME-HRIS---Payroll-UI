@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../../components/Icons';
 
 const avatarColors = ['#0b044d', '#8e1e18', '#1a0f6e', '#5a0f0b', '#2d1a8e', '#6b3fa0'];
 const initials = name => name.split(' ').filter(n => /^[A-Z]/.test(n)).map(n => n[0]).join('').slice(0, 2).toUpperCase();
@@ -146,16 +147,16 @@ export default function AdminPerformance({ searchQuery = '' }) {
 
       <div className="stats-grid" style={{ marginBottom: 20 }}>
         {[
-          { label: 'Total Evaluations', value: performance.length, sub: 'All employees', accent: '#0b044d', icon: '📊' },
-          { label: 'Completed', value: totalCompleted, sub: 'Finished evaluations', accent: '#15803d', icon: '✓' },
-          { label: 'Pending', value: totalPending, sub: 'Awaiting evaluation', accent: '#d9bb00', icon: '⏱' },
-          { label: 'Average Rating', value: avgRating.toFixed(1), sub: 'Out of 5.0', accent: '#8e1e18', icon: '⭐' },
+          { label: 'Total Evaluations', value: performance.length, sub: 'All employees', accent: '#0b044d', icon: 'barChart' },
+          { label: 'Completed', value: totalCompleted, sub: 'Finished evaluations', accent: '#15803d', icon: 'checkCircle' },
+          { label: 'Pending', value: totalPending, sub: 'Awaiting evaluation', accent: '#d9bb00', icon: 'clock' },
+          { label: 'Average Rating', value: avgRating.toFixed(1), sub: 'Out of 5.0', accent: '#8e1e18', icon: 'star' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '18' }}>
-                <span style={{ fontSize: 16 }}>{s.icon}</span>
+                <Icon name={s.icon} size={18} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value">{s.value}</h2>
@@ -183,7 +184,7 @@ export default function AdminPerformance({ searchQuery = '' }) {
               <option>Pending</option>
             </select>
             <button className="btn-export">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <Icon name="download" size={13} />
               Export
             </button>
           </div>

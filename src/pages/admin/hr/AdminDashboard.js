@@ -1,21 +1,16 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../../components/Icons';
 
 const avatarColors = ['#0b044d', '#8e1e18', '#1a0f6e', '#5a0f0b', '#2d1a8e', '#0b044d'];
 const initials = name => name.split(' ').filter(n => /^[A-Z]/.test(n)).map(n => n[0]).join('').slice(0, 2).toUpperCase();
 
 const stats = [
-  { label: 'Total Personnel',      value: '348',        sub: '+6 this month',        accent: '#0b044d',
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
-  { label: 'Semi-Monthly Payroll', value: '₱2,436,300', sub: '+1.8% vs last period', accent: '#8e1e18',
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="#8e1e18" stroke="none"><text x="2" y="18" fontSize="17" fontWeight="bold" fontFamily="Arial, sans-serif">₱</text></svg> },
-  { label: 'Open Job Positions',   value: '8',          sub: '45 applicants',        accent: '#15803d',
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg> },
-  { label: 'Ongoing Trainings',    value: '5',          sub: '83 participants',      accent: '#d9bb00',
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> },
-  { label: 'Pending Evaluations',  value: '12',         sub: 'Due by Jun 30',        accent: '#1a6e3c',
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> },
-  { label: 'Avg Performance',      value: '4.7',        sub: 'Out of 5.0',           accent: '#6b3fa0',
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> },
+  { label: 'Total Personnel',      value: '348',        sub: '+6 this month',        accent: '#0b044d', icon: 'users' },
+  { label: 'Semi-Monthly Payroll', value: '₱2,436,300', sub: '+1.8% vs last period', accent: '#8e1e18', icon: 'peso' },
+  { label: 'Open Job Positions',   value: '8',          sub: '45 applicants',        accent: '#15803d', icon: 'user' },
+  { label: 'Ongoing Trainings',    value: '5',          sub: '83 participants',      accent: '#d9bb00', icon: 'bookOpen' },
+  { label: 'Pending Evaluations',  value: '12',         sub: 'Due by Jun 30',        accent: '#1a6e3c', icon: 'activity' },
+  { label: 'Avg Performance',      value: '4.7',        sub: 'Out of 5.0',           accent: '#6b3fa0', icon: 'award' },
 ];
 
 const payrollData = [
@@ -57,7 +52,7 @@ function PayrollModal({ row, idx, onClose }) {
             <p className="modal-sub">{row.position} · {row.dept}</p>
           </div>
           <button className="modal-close" onClick={onClose}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <Icon name="x" size={16} />
           </button>
         </div>
         <div className="modal-body">
@@ -114,7 +109,7 @@ export default function AdminDashboard() {
       <div className="welcome-banner">
         <div className="banner-left">
           <div className="banner-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d9bb00" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <Icon name="building" size={22} color="#d9bb00" />
           </div>
           <div>
             <h2>Welcome to PRIME HRIS Dashboard</h2>
@@ -133,7 +128,7 @@ export default function AdminDashboard() {
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
-              <div className="stat-icon-wrap" style={{ background: s.accent + '15' }}>{s.icon}</div>
+              <div className="stat-icon-wrap" style={{ background: s.accent + '15' }}><Icon name={s.icon} size={18} color={s.accent} /></div>
             </div>
             <h2 className="stat-value">{s.value}</h2>
             <div className="stat-footer">
@@ -149,7 +144,7 @@ export default function AdminDashboard() {
         <div className="stat-card" style={{ cursor: 'pointer', transition: 'all 0.2s' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'linear-gradient(135deg, #15803d 0%, #22c55e 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(21, 128, 61, 0.2)' }}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+              <Icon name="user" size={22} color="#fff" />
             </div>
             <div style={{ flex: 1 }}>
               <p style={{ fontSize: '14px', fontWeight: '700', color: '#0b044d', marginBottom: '3px' }}>Recruitment</p>
@@ -162,26 +157,26 @@ export default function AdminDashboard() {
         <div className="stat-card" style={{ cursor: 'pointer', transition: 'all 0.2s' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'linear-gradient(135deg, #d9bb00 0%, #fbbf24 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(217, 187, 0, 0.2)' }}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <Icon name="bookOpen" size={22} color="#fff" />
             </div>
             <div style={{ flex: 1 }}>
               <p style={{ fontSize: '14px', fontWeight: '700', color: '#0b044d', marginBottom: '3px' }}>Training Programs</p>
               <p style={{ fontSize: '12px', color: '#9999bb' }}>5 ongoing · 83 participants</p>
             </div>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9999bb" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+            <Icon name="chevronRight" size={18} color="#9999bb" />
           </div>
         </div>
         
         <div className="stat-card" style={{ cursor: 'pointer', transition: 'all 0.2s' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'linear-gradient(135deg, #6b3fa0 0%, #8b5cf6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(107, 63, 160, 0.2)' }}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <Icon name="activity" size={22} color="#fff" />
             </div>
             <div style={{ flex: 1 }}>
               <p style={{ fontSize: '14px', fontWeight: '700', color: '#0b044d', marginBottom: '3px' }}>Performance Reviews</p>
               <p style={{ fontSize: '12px', color: '#9999bb' }}>12 pending evaluations</p>
             </div>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9999bb" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+            <Icon name="chevronRight" size={18} color="#9999bb" />
           </div>
         </div>
       </section>
@@ -189,9 +184,9 @@ export default function AdminDashboard() {
       {/* Tabs for Dashboard Views */}
       <div style={{ display: 'flex', gap: '8px', marginBottom: '20px', borderBottom: '2px solid #f0effe', paddingBottom: '0' }}>
         {[
-          { id: 'overview', label: 'Overview', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> },
-          { id: 'payroll', label: 'Recent Payroll', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><text x="3" y="18" fontSize="16" fontWeight="bold" fontFamily="Arial, sans-serif">₱</text></svg> },
-          { id: 'activity', label: 'Recent Activity', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> },
+          { id: 'overview', label: 'Overview', icon: 'grid' },
+          { id: 'payroll', label: 'Recent Payroll', icon: 'peso' },
+          { id: 'activity', label: 'Recent Activity', icon: 'activity' },
         ].map(tab => (
           <button
             key={tab.id}
@@ -207,7 +202,7 @@ export default function AdminDashboard() {
               marginBottom: '-2px'
             }}
           >
-            {tab.icon}
+            <Icon name={tab.icon} size={16} color={activeTab === tab.id ? '#0b044d' : '#9999bb'} />
             {tab.label}
           </button>
         ))}
@@ -224,20 +219,20 @@ export default function AdminDashboard() {
           </div>
           <div style={{ padding: '20px 24px' }}>
             {[
-              { type: 'success', title: 'Payroll Processed', desc: 'Jun 16-30, 2025 payroll completed for 348 employees', time: '2 hours ago', icon: '✓' },
-              { type: 'info', title: 'New Job Posting', desc: 'Administrative Officer IV position opened in Office of the Mayor', time: '5 hours ago', icon: '📋' },
-              { type: 'warning', title: 'Pending Evaluations', desc: '12 performance evaluations due by Jun 30, 2025', time: '1 day ago', icon: '⏱' },
-              { type: 'info', title: 'Training Completed', desc: '30 employees completed Customer Service Excellence training', time: '2 days ago', icon: '🎓' },
-              { type: 'success', title: 'New Employee Onboarded', desc: 'Roberto T. Flores (PGS-0310) successfully onboarded', time: '3 days ago', icon: '👤' },
+              { type: 'success', title: 'Payroll Processed', desc: 'Jun 16-30, 2025 payroll completed for 348 employees', time: '2 hours ago', icon: 'checkCircle' },
+              { type: 'info', title: 'New Job Posting', desc: 'Administrative Officer IV position opened in Office of the Mayor', time: '5 hours ago', icon: 'clipboard' },
+              { type: 'warning', title: 'Pending Evaluations', desc: '12 performance evaluations due by Jun 30, 2025', time: '1 day ago', icon: 'clock' },
+              { type: 'info', title: 'Training Completed', desc: '30 employees completed Customer Service Excellence training', time: '2 days ago', icon: 'bookOpen' },
+              { type: 'success', title: 'New Employee Onboarded', desc: 'Roberto T. Flores (PGS-0310) successfully onboarded', time: '3 days ago', icon: 'user' },
             ].map((activity, i) => (
               <div key={i} style={{ display: 'flex', gap: '14px', padding: '14px 0', borderBottom: i < 4 ? '1px solid #f7f6ff' : 'none' }}>
                 <div style={{ 
                   width: '40px', height: '40px', borderRadius: '10px', 
                   background: activity.type === 'success' ? '#e8f9ef' : activity.type === 'warning' ? '#fefce8' : '#f0effe',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '18px', flexShrink: 0
+                  fontSize: '18px', flexShrink: 0, color: activity.type === 'success' ? '#15803d' : activity.type === 'warning' ? '#d9bb00' : '#0b044d'
                 }}>
-                  {activity.icon}
+                  <Icon name={activity.icon} size={18} color="currentColor" />
                 </div>
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: '13.5px', fontWeight: '600', color: '#0b044d', marginBottom: '3px' }}>{activity.title}</p>
@@ -270,6 +265,10 @@ export default function AdminDashboard() {
               <button className="btn-export">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Export
+              </button>
+              <button className="modal-btn-primary" style={{ padding: '7px 16px', fontSize: 12.5 }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Process Payroll
               </button>
             </div>
           </div>
@@ -343,13 +342,20 @@ export default function AdminDashboard() {
           <div style={{ padding: '20px 24px' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px', marginBottom: '20px' }}>
               {[
-                { module: 'Recruitment', count: 8, color: '#15803d', icon: '👥' },
-                { module: 'Training', count: 5, color: '#d9bb00', icon: '📚' },
-                { module: 'Performance', count: 12, color: '#6b3fa0', icon: '⭐' },
-                { module: 'Payroll', count: 348, color: '#8e1e18', icon: '₱' },
+                { module: 'Recruitment', count: 8, color: '#15803d', icon: 'users' },
+                { module: 'Training', count: 5, color: '#d9bb00', icon: 'bookOpen' },
+                { module: 'Performance', count: 12, color: '#6b3fa0', icon: 'star' },
+                { module: 'Payroll', count: 348, color: '#8e1e18', icon: 'peso' },
               ].map((mod, i) => (
                 <div key={i} style={{ background: '#f7f6ff', borderRadius: '10px', padding: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ fontSize: '24px' }}>{mod.icon}</div>
+                  <div style={{ 
+                    width: '48px', height: '48px', borderRadius: '10px',
+                    background: mod.color + '15',
+                    border: `2px solid ${mod.color}`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                  }}>
+                    <Icon name={mod.icon} size={24} color={mod.color} />
+                  </div>
                   <div>
                     <p style={{ fontSize: '11px', color: '#9999bb', fontWeight: '600', marginBottom: '2px' }}>{mod.module}</p>
                     <p style={{ fontSize: '20px', fontWeight: '800', color: mod.color }}>{mod.count}</p>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Icon } from '../../../components/Icons';
 
 const peso = n => '₱' + Number(n).toLocaleString('en-PH', { minimumFractionDigits: 2 });
 
@@ -18,13 +19,13 @@ const months = ['January','February','March','April','May','June','July','August
 const years  = ['2025','2024','2023'];
 
 const reportTypes = [
-  { id: 'payroll',      label: 'Payroll Summary',       icon: '💳' },
-  { id: 'department',   label: 'Department Breakdown',  icon: '🏢' },
-  { id: 'deductions',   label: 'Deductions Report',     icon: '📉' },
-  { id: 'headcount',    label: 'Headcount Report',      icon: '👥' },
-  { id: 'recruitment',  label: 'Recruitment Report',    icon: '📝' },
-  { id: 'training',     label: 'Training Report',       icon: '🎯' },
-  { id: 'performance',  label: 'Performance Report',    icon: '⭐' },
+  { id: 'payroll',      label: 'Payroll Summary',       icon: 'creditCard' },
+  { id: 'department',   label: 'Department Breakdown',  icon: 'building' },
+  { id: 'deductions',   label: 'Deductions Report',     icon: 'trendingUp' },
+  { id: 'headcount',    label: 'Headcount Report',      icon: 'users' },
+  { id: 'recruitment',  label: 'Recruitment Report',    icon: 'clipboard' },
+  { id: 'training',     label: 'Training Report',       icon: 'bookOpen' },
+  { id: 'performance',  label: 'Performance Report',    icon: 'star' },
 ];
 
 export default function Reports() {
@@ -63,10 +64,10 @@ export default function Reports() {
   const deptRows = Object.entries(deptMap).sort((a, b) => b[1].basic - a[1].basic);
 
   const summaryStats = [
-    { label: 'Gross Payroll',    value: peso(totalBasic),      sub: `${filtered.length} employees · ${period}`, accent: '#0b044d' },
-    { label: 'Total Net Pay',    value: peso(totalNet),        sub: 'After all deductions',         accent: '#15803d' },
-    { label: 'Total Deductions', value: peso(totalDeductions), sub: 'GSIS, PhilHealth, Pag-IBIG, Tax', accent: '#8e1e18' },
-    { label: 'Processed',        value: filtered.filter(r => r.status === 'Processed').length, sub: `${filtered.filter(r => r.status !== 'Processed').length} pending/on-hold`, accent: '#d9bb00' },
+    { label: 'Gross Payroll',    value: peso(totalBasic),      sub: `${filtered.length} employees · ${period}`, accent: '#0b044d', icon: 'peso' },
+    { label: 'Total Net Pay',    value: peso(totalNet),        sub: 'After all deductions',         accent: '#15803d', icon: 'peso' },
+    { label: 'Total Deductions', value: peso(totalDeductions), sub: 'GSIS, PhilHealth, Pag-IBIG, Tax', accent: '#8e1e18', icon: 'creditCard' },
+    { label: 'Processed',        value: filtered.filter(r => r.status === 'Processed').length, sub: `${filtered.filter(r => r.status !== 'Processed').length} pending/on-hold`, accent: '#d9bb00', icon: 'checkCircle' },
   ];
 
   return (
@@ -87,7 +88,7 @@ export default function Reports() {
               transition: 'all 0.18s',
             }}
           >
-            <span>{rt.icon}</span> {rt.label}
+            <Icon name={rt.icon} size={16} color={activeReport === rt.id ? '#fff' : '#5a5888'} /> {rt.label}
           </button>
         ))}
       </div>
@@ -103,7 +104,7 @@ export default function Reports() {
           </div>
           <div className="table-actions">
             <div className="search-box" style={{ padding: '7px 12px' }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9999bb" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <Icon name="search" size={13} color="#9999bb" />
               <input
                 type="text" placeholder="Search..."
                 value={search} onChange={e => setSearch(e.target.value)}
@@ -121,7 +122,7 @@ export default function Reports() {
               {years.map(y => <option key={y}>{y}</option>)}
             </select>
             <button className="btn-export" onClick={() => window.print()}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <Icon name="download" size={13} />
               Export / Print
             </button>
           </div>
@@ -135,7 +136,7 @@ export default function Reports() {
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '18' }}>
-                <span style={{ fontSize: 16 }}>📊</span>
+                <Icon name={s.icon} size={16} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value" style={{ fontSize: 18 }}>{s.value}</h2>

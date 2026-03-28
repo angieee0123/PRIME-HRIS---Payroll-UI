@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../../components/Icons';
 
 const initialTrainings = [
   { id: 'TRN-001', title: 'Leadership Development Program', type: 'Leadership', participants: 25, capacity: 30, status: 'Ongoing', startDate: 'Jun 15, 2025', endDate: 'Jul 15, 2025', venue: 'Municipal Hall Conference Room' },
@@ -31,7 +32,7 @@ function TrainingModal({ training, onClose }) {
         <div className="modal-header">
           <div className="pmodal-hero">
             <div style={{ width: 52, height: 52, borderRadius: 14, background: `linear-gradient(135deg, ${accent} 0%, ${accent}99 100%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <Icon name="bookOpen" size={24} color="#fff" />
             </div>
             <div>
               <span className="modal-eyebrow">TRAINING PROGRAM · {training.id}</span>
@@ -188,19 +189,15 @@ export default function AdminTraining({ searchQuery = '' }) {
 
       <div className="stats-grid" style={{ marginBottom: 20 }}>
         {[
-          { label: 'Total Programs',     value: trainings.length,  sub: 'All training programs', accent: '#0b044d',
-            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> },
-          { label: 'Ongoing',            value: totalOngoing,       sub: 'Currently active',      accent: '#15803d',
-            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg> },
-          { label: 'Total Participants', value: totalParticipants,  sub: 'All enrollments',       accent: '#d9bb00',
-            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
-          { label: 'Completed',          value: totalCompleted,     sub: 'Finished programs',     accent: '#8e1e18',
-            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> },
+          { label: 'Total Programs',     value: trainings.length,  sub: 'All training programs', accent: '#0b044d', icon: 'bookOpen' },
+          { label: 'Ongoing',            value: totalOngoing,       sub: 'Currently active',      accent: '#15803d', icon: 'play' },
+          { label: 'Total Participants', value: totalParticipants,  sub: 'All enrollments',       accent: '#d9bb00', icon: 'users' },
+          { label: 'Completed',          value: totalCompleted,     sub: 'Finished programs',     accent: '#8e1e18', icon: 'checkCircle' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
-              <div className="stat-icon-wrap" style={{ background: s.accent + '15', color: s.accent }}>{s.icon}</div>
+              <div className="stat-icon-wrap" style={{ background: s.accent + '15', color: s.accent }}><Icon name={s.icon} size={18} /></div>
             </div>
             <h2 className="stat-value">{s.value}</h2>
             <div className="stat-footer">
@@ -228,11 +225,11 @@ export default function AdminTraining({ searchQuery = '' }) {
               <option>Completed</option>
             </select>
             <button className="btn-export">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <Icon name="download" size={13} />
               Export
             </button>
             <button className="modal-btn-primary" style={{ padding: '8px 18px', fontSize: 12.5, display: 'flex', alignItems: 'center', gap: '6px' }} onClick={() => setAddOpen(true)}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <Icon name="plus" size={13} />
               Add Training
             </button>
           </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../../components/Icons';
 
 const avatarColors = ['#0b044d', '#8e1e18', '#1a0f6e', '#5a0f0b', '#2d1a8e', '#6b3fa0'];
 const initials = name => name.split(' ').filter(n => /^[A-Z]/.test(n)).map(n => n[0]).join('').slice(0, 2).toUpperCase();
@@ -302,20 +303,16 @@ export default function Payroll({ searchQuery = '' }) {
       {/* Stats */}
       <div className="stats-grid" style={{ marginBottom: 20 }}>
         {[
-          { label: 'Gross Payroll',    value: peso(grossPayroll), sub: periodLabel,              accent: '#0b044d',
-            icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><text x="4" y="18" fontSize="16" fontWeight="bold" fill="currentColor" stroke="none">₱</text></svg> },
-          { label: 'Total Net Pay',    value: peso(totalNet),     sub: 'After deductions',       accent: '#15803d',
-            icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><text x="4" y="18" fontSize="16" fontWeight="bold" fill="currentColor" stroke="none">₱</text></svg> },
-          { label: 'Total Deductions', value: peso(totalDeduct),  sub: 'GSIS, PhilHealth etc',   accent: '#8e1e18',
-            icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><text x="4" y="18" fontSize="16" fontWeight="bold" fill="currentColor" stroke="none">₱</text></svg> },
-          { label: 'Pending Records',  value: pendingCount,       sub: `${processedCount} processed`, accent: '#d9bb00',
-            icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
+          { label: 'Gross Payroll',    value: peso(grossPayroll), sub: periodLabel,              accent: '#0b044d', icon: 'peso' },
+          { label: 'Total Net Pay',    value: peso(totalNet),     sub: 'After deductions',       accent: '#15803d', icon: 'creditCard' },
+          { label: 'Total Deductions', value: peso(totalDeduct),  sub: 'GSIS, PhilHealth etc',   accent: '#8e1e18', icon: 'minus' },
+          { label: 'Pending Records',  value: pendingCount,       sub: `${processedCount} processed`, accent: '#d9bb00', icon: 'clock' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '18' }}>
-                {s.icon}
+                <Icon name={s.icon} size={16} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value" style={{ fontSize: 18 }}>{s.value}</h2>
