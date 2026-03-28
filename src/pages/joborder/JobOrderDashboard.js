@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Icon } from '../../components/Icons';
 
 const emp = {
   id: 'JO-0042',
@@ -68,17 +69,17 @@ export default function JobOrderDashboard({ notifs, setNotifs }) {
   const unread = notifs ? notifs.filter(n => !n.read).length : 0;
 
   const stats = [
-    { label: 'Basic Pay',      value: '₱12,500.00', sub: 'Jun 16–30, 2025',       icon: '💳', accent: '#0b044d' },
-    { label: 'Net Pay',        value: '₱11,250.00', sub: 'After deductions',       icon: '✅', accent: '#15803d' },
-    { label: 'Contract End',   value: 'Dec 31',     sub: emp.contractEnd,          icon: '📄', accent: '#1a6e3c' },
-    { label: 'Attendance',     value: '90%',        sub: '19 days present',        icon: '🗓', accent: '#8e1e18' },
+    { label: 'Basic Pay',      value: '₱12,500.00', sub: 'Jun 16–30, 2025',       icon: 'creditCard', accent: '#0b044d' },
+    { label: 'Net Pay',        value: '₱11,250.00', sub: 'After deductions',       icon: 'checkCircle', accent: '#15803d' },
+    { label: 'Contract End',   value: 'Dec 31',     sub: emp.contractEnd,          icon: 'fileText', accent: '#1a6e3c' },
+    { label: 'Attendance',     value: '90%',        sub: '19 days present',        icon: 'calendar', accent: '#8e1e18' },
   ];
 
   const quickActions = [
-    { icon: '💳', label: 'View Payslip',    action: () => setShowPayslip(true) },
-    { icon: '🗓', label: 'View Attendance', action: () => {} },
-    { icon: '👤', label: 'My Profile',      action: () => {} },
-    { icon: '🔒', label: 'Security',        action: () => {} },
+    { icon: 'creditCard', label: 'View Payslip',    action: () => setShowPayslip(true) },
+    { icon: 'calendar', label: 'View Attendance', action: () => {} },
+    { icon: 'user', label: 'My Profile',      action: () => {} },
+    { icon: 'shield', label: 'Security',        action: () => {} },
   ];
 
   return (
@@ -109,7 +110,7 @@ export default function JobOrderDashboard({ notifs, setNotifs }) {
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '15' }}>
-                <span style={{ fontSize: 17 }}>{s.icon}</span>
+                <Icon name={s.icon} size={18} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value">{s.value}</h2>
@@ -197,7 +198,7 @@ export default function JobOrderDashboard({ notifs, setNotifs }) {
                     onMouseEnter={e => e.currentTarget.style.borderColor = '#1a6e3c'}
                     onMouseLeave={e => e.currentTarget.style.borderColor = '#eceaf8'}
                   >
-                    <span style={{ fontSize: 18 }}>{a.icon}</span>
+                    <Icon name={a.icon} size={16} color="#0b044d" />
                     {a.label}
                   </button>
                 ))}

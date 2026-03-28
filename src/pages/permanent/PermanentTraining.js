@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../components/Icons';
 
 const myTrainings = [
   { id: 'TRN-001', title: 'Leadership Development Program', type: 'Leadership', status: 'Enrolled', progress: 65, startDate: 'Jun 15, 2025', endDate: 'Jul 15, 2025', venue: 'Municipal Hall Conference Room', certificate: null },
@@ -124,16 +125,16 @@ export default function PermanentTraining() {
       {/* Stats Grid */}
       <section className="stats-grid" style={{ marginBottom: 24 }}>
         {[
-          { label: 'Total Trainings', value: myTrainings.length, sub: 'All programs', accent: '#0b044d', icon: '📚' },
-          { label: 'Completed', value: totalCompleted, sub: 'Finished programs', accent: '#15803d', icon: '✓' },
-          { label: 'Enrolled', value: totalEnrolled, sub: 'Currently active', accent: '#d9bb00', icon: '📝' },
-          { label: 'Available', value: availableTrainings.length, sub: 'Open for enrollment', accent: '#8e1e18', icon: '🎯' },
+          { label: 'Total Trainings', value: myTrainings.length, sub: 'All programs', accent: '#0b044d', icon: 'bookOpen' },
+          { label: 'Completed', value: totalCompleted, sub: 'Finished programs', accent: '#15803d', icon: 'checkCircle' },
+          { label: 'Enrolled', value: totalEnrolled, sub: 'Currently active', accent: '#d9bb00', icon: 'clipboard' },
+          { label: 'Available', value: availableTrainings.length, sub: 'Open for enrollment', accent: '#8e1e18', icon: 'calendar' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '15' }}>
-                <span style={{ fontSize: 17 }}>{s.icon}</span>
+                <Icon name={s.icon} size={18} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value">{s.value}</h2>

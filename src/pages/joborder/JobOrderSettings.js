@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { Icon } from '../../components/Icons';
 import '../admin/hr/AdminSettings.css';
 
 const TABS = [
-  { id: 'profile',       label: 'Profile',        icon: '👤' },
-  { id: 'security',      label: 'Security',       icon: '🔒' },
-  { id: 'notifications', label: 'Notifications',  icon: '🔔' },
+  { id: 'profile',       label: 'Profile',        icon: 'user' },
+  { id: 'security',      label: 'Security',       icon: 'shield' },
+  { id: 'notifications', label: 'Notifications',  icon: 'bell' },
 ];
 
 const ACCENT = '#1a6e3c';
@@ -110,11 +111,16 @@ function ProfileTab() {
         ))}
       </Section>
 
-      <div style={{ background: '#f0fdf4', border: '1.5px solid #bbf7d0', borderRadius: 10, padding: '14px 18px', marginTop: 16 }}>
-        <p style={{ fontSize: 12.5, color: '#15803d', fontWeight: 700, marginBottom: 4 }}>📋 Contract Renewal Notice</p>
-        <p style={{ fontSize: 12, color: '#166534', lineHeight: 1.7, margin: 0 }}>
-          Your Job Order contract is valid until <strong>{init.contractEnd}</strong>. Contact the HR Management Office for renewal inquiries.
-        </p>
+      <div style={{ background: '#f0fdf4', border: '1.5px solid #bbf7d0', borderRadius: 10, padding: '14px 18px', marginTop: 16, display: 'flex', gap: '12px' }}>
+        <div style={{ flexShrink: 0 }}>
+          <Icon name="clipboard" size={16} color="#15803d" />
+        </div>
+        <div>
+          <p style={{ fontSize: 12.5, color: '#15803d', fontWeight: 700, marginBottom: 4 }}>Contract Renewal Notice</p>
+          <p style={{ fontSize: 12, color: '#166534', lineHeight: 1.7, margin: 0 }}>
+            Your Job Order contract is valid until <strong>{init.contractEnd}</strong>. Contact the HR Management Office for renewal inquiries.
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -242,7 +248,7 @@ export default function JobOrderSettings() {
               className={`settings-nav-item ${tab === t.id ? 'active' : ''}`}
               style={tab === t.id ? { background: ACCENT } : {}}
             >
-              <span className="settings-nav-icon">{t.icon}</span>
+              <span className="settings-nav-icon"><Icon name={t.icon} size={16} color={tab === t.id ? '#fff' : '#6b6a8a'} /></span>
               <span className="settings-nav-label">{t.label}</span>
               {tab === t.id && (
                 <svg className="settings-nav-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -255,7 +261,7 @@ export default function JobOrderSettings() {
 
         <div className="settings-tip" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', border: '1.5px solid #bbf7d0' }}>
           <div className="settings-tip-header">
-            <span className="settings-tip-icon">📝</span>
+            <span className="settings-tip-icon"><Icon name="clipboard" size={16} color="#15803d" /></span>
             <p className="settings-tip-title" style={{ color: '#15803d' }}>CONTRACT INFO</p>
           </div>
           <p className="settings-tip-text" style={{ color: '#166534' }}>Your contract is valid until Dec 31, 2025. Contact HR for renewal.</p>

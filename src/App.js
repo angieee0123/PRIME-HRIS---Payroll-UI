@@ -3,6 +3,7 @@ import './App.css';
 import Landing from './pages/user/UsersLandingPage';
 import Login from './pages/user/UserLogin';
 import Signup from './pages/user/UserSignup';
+import ForgotPassword from './pages/user/UserForgotPassword';
 import Personnel from './pages/admin/hr/AdminPersonnel';
 import Payroll from './pages/admin/hr/AdminPayroll';
 import Attendance from './pages/admin/hr/AdminAttendance';
@@ -285,8 +286,9 @@ function App() {
   };
 
   if (view === 'landing') return <Landing onLogin={() => setView('login')} />;
-  if (view === 'login')   return <Login   onLogin={handleLogin} onBack={() => setView('landing')} onSignup={() => setView('signup')} />;
+  if (view === 'login')   return <Login   onLogin={handleLogin} onBack={() => setView('landing')} onSignup={() => setView('signup')} onForgotPassword={() => setView('forgot-password')} />;
   if (view === 'signup')  return <Signup  onLogin={() => setView('login')} onBack={() => setView('landing')} onSubmitRequest={handleSubmitRequest} />;
+  if (view === 'forgot-password') return <ForgotPassword onBack={() => setView('landing')} onBackToLogin={() => setView('login')} />;
 
   return (
     <div className="app-layout">
@@ -469,7 +471,11 @@ function App() {
         {active === 'leave' && role === 'employee' && <MyLeaveAndBenefits searchQuery={searchQuery} />}
         {active === 'leave' && role === 'job-order' && (
           <div className="placeholder-section">
-            <div style={{ fontSize: 40, marginBottom: 12 }}>🚫</div>
+            <div style={{ marginBottom: 12 }}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9999bb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+            </div>
             <h2 className="placeholder-title">Not Available</h2>
             <p className="placeholder-desc">Leave & Benefits are not applicable for Job Order personnel.</p>
           </div>

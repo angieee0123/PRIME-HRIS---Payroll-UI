@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../components/Icons';
 
 const emp = {
   id: 'PGS-0115',
@@ -85,17 +86,17 @@ export default function EmployeeDashboard({ role, notifs, setNotifs }) {
   const unread = notifs ? notifs.filter(n => !n.read).length : 0;
 
   const stats = [
-    { label: 'Basic Pay',     value: '₱16,921.50',           sub: 'Jun 16–30, 2025',      icon: '💳', accent: '#0b044d' },
-    { label: 'Net Pay',       value: '₱13,537.50',           sub: 'After deductions',      icon: '✅', accent: '#15803d' },
-    ...(!isJobOrder ? [{ label: 'Leave Credits', value: emp.leaveCredits.total, sub: `${emp.leaveCredits.vacation} vacation · ${emp.leaveCredits.sick} sick`, icon: '📋', accent: '#d9bb00' }] : []),
-    { label: 'Attendance',    value: `${attendancePct}%`,    sub: `${person.attendance.present} days present`, icon: '🗓', accent: '#8e1e18' },
+    { label: 'Basic Pay',     value: '₱16,921.50',           sub: 'Jun 16–30, 2025',      icon: 'creditCard', accent: '#0b044d' },
+    { label: 'Net Pay',       value: '₱13,537.50',           sub: 'After deductions',      icon: 'checkCircle', accent: '#15803d' },
+    ...(!isJobOrder ? [{ label: 'Leave Credits', value: emp.leaveCredits.total, sub: `${emp.leaveCredits.vacation} vacation · ${emp.leaveCredits.sick} sick`, icon: 'fileText', accent: '#d9bb00' }] : []),
+    { label: 'Attendance',    value: `${attendancePct}%`,    sub: `${person.attendance.present} days present`, icon: 'calendarCheck', accent: '#8e1e18' },
   ];
 
   const quickActions = [
-    { icon: '💳', label: 'View Payslip',   action: () => setShowPayslip(true) },
-    ...(!isJobOrder ? [{ icon: '📋', label: 'File Leave', action: () => {} }] : []),
-    { icon: '🗓', label: 'View Attendance', action: () => {} },
-    { icon: '👤', label: 'My Profile',      action: () => {} },
+    { icon: 'creditCard', label: 'View Payslip',   action: () => setShowPayslip(true) },
+    ...(!isJobOrder ? [{ icon: 'fileText', label: 'File Leave', action: () => {} }] : []),
+    { icon: 'calendarCheck', label: 'View Attendance', action: () => {} },
+    { icon: 'user', label: 'My Profile',      action: () => {} },
   ];
 
   // Filter out leave-related notifications for job-order
@@ -129,7 +130,7 @@ export default function EmployeeDashboard({ role, notifs, setNotifs }) {
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '15' }}>
-                <span style={{ fontSize: 17 }}>{s.icon}</span>
+                <Icon name={s.icon} size={18} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value">{s.value}</h2>
@@ -217,7 +218,7 @@ export default function EmployeeDashboard({ role, notifs, setNotifs }) {
                     onMouseEnter={e => e.currentTarget.style.borderColor = '#0b044d'}
                     onMouseLeave={e => e.currentTarget.style.borderColor = '#eceaf8'}
                   >
-                    <span style={{ fontSize: 18 }}>{a.icon}</span>
+                    <Icon name={a.icon} size={18} color="#0b044d" />
                     {a.label}
                   </button>
                 ))}

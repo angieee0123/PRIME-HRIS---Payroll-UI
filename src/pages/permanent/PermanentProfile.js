@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../components/Icons';
 
 const initials = name => name.split(' ').filter(n => /^[A-Z]/.test(n)).map(n => n[0]).join('').slice(0, 2).toUpperCase();
 
@@ -133,16 +134,16 @@ export default function PermanentProfile() {
       {/* Stats Grid */}
       <section className="stats-grid" style={{ marginBottom: 24 }}>
         {[
-          { label: 'Years of Service', value: '7.5', sub: 'Since Jan 2018', accent: '#0b044d', icon: '📅' },
-          { label: 'Performance Rating', value: '4.9', sub: 'Latest evaluation', accent: '#15803d', icon: '⭐' },
-          { label: 'Leave Balance', value: '12', sub: 'Days remaining', accent: '#d9bb00', icon: '🏖' },
-          { label: 'Trainings Completed', value: '8', sub: 'Total programs', accent: '#8e1e18', icon: '📚' },
+          { label: 'Years of Service', value: '7.5', sub: 'Since Jan 2018', accent: '#0b044d', icon: 'calendar' },
+          { label: 'Performance Rating', value: '4.9', sub: 'Latest evaluation', accent: '#15803d', icon: 'star' },
+          { label: 'Leave Balance', value: '12', sub: 'Days remaining', accent: '#d9bb00', icon: 'umbrella' },
+          { label: 'Trainings Completed', value: '8', sub: 'Total programs', accent: '#8e1e18', icon: 'bookOpen' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '15' }}>
-                <span style={{ fontSize: 17 }}>{s.icon}</span>
+                <Icon name={s.icon} size={18} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value">{s.value}</h2>

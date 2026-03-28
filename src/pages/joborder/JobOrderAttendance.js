@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../components/Icons';
 
 const emp = {
   id: 'JO-0042',
@@ -184,16 +185,16 @@ export default function JobOrderAttendance({ searchQuery = '' }) {
       {/* Stats */}
       <section className="stats-grid" style={{ marginBottom: 24 }}>
         {[
-          { label: 'Days Present',    value: present + late, sub: `${late} late arrival${late !== 1 ? 's' : ''}`, accent: '#15803d' },
-          { label: 'Days Absent',     value: absent,         sub: absent === 0 ? 'Perfect record' : 'This month', accent: '#8e1e18' },
-          { label: 'Overtime Hours',  value: `${totalOT}h`,  sub: `${holiday} holiday${holiday !== 1 ? 's' : ''}`, accent: '#0b044d' },
-          { label: 'Attendance Rate', value: `${rate}%`,     sub: `${workingDays} working days`,                   accent: rate >= 90 ? '#15803d' : '#d9bb00' },
+          { label: 'Days Present',    value: present + late, sub: `${late} late arrival${late !== 1 ? 's' : ''}`, accent: '#15803d', icon: 'checkCircle' },
+          { label: 'Days Absent',     value: absent,         sub: absent === 0 ? 'Perfect record' : 'This month', accent: '#8e1e18', icon: 'clock' },
+          { label: 'Overtime Hours',  value: `${totalOT}h`,  sub: `${holiday} holiday${holiday !== 1 ? 's' : ''}`, accent: '#0b044d', icon: 'activity' },
+          { label: 'Attendance Rate', value: `${rate}%`,     sub: `${workingDays} working days`,                   accent: rate >= 90 ? '#15803d' : '#d9bb00', icon: 'barChart' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '18' }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
+                <Icon name={s.icon} size={18} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value">{s.value}</h2>

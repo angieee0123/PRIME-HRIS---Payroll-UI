@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { Icon } from '../../components/Icons';
 import '../admin/hr/AdminSettings.css';
 
 const TABS = [
-  { id: 'profile',       label: 'Profile',        icon: '👤' },
-  { id: 'security',      label: 'Security',       icon: '🔒' },
-  { id: 'notifications', label: 'Notifications',  icon: '🔔' },
+  { id: 'profile',       label: 'Profile',        icon: 'user' },
+  { id: 'security',      label: 'Security',       icon: 'shield' },
+  { id: 'notifications', label: 'Notifications',  icon: 'bell' },
 ];
 
 function Section({ title, children }) {
@@ -228,7 +229,7 @@ export default function EmployeeSettings() {
               className={`settings-nav-item ${tab === t.id ? 'active' : ''}`}
               style={tab === t.id ? { background: '#8e1e18' } : {}}
             >
-              <span className="settings-nav-icon">{t.icon}</span>
+              <span className="settings-nav-icon"><Icon name={t.icon} size={18} /></span>
               <span className="settings-nav-label">{t.label}</span>
               {tab === t.id && (
                 <svg className="settings-nav-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -241,7 +242,7 @@ export default function EmployeeSettings() {
 
         <div className="settings-tip">
           <div className="settings-tip-header">
-            <span className="settings-tip-icon">💡</span>
+            <span className="settings-tip-icon"><Icon name="info" size={18} color="#d9bb00" /></span>
             <p className="settings-tip-title">QUICK TIP</p>
           </div>
           <p className="settings-tip-text">Keep your profile updated for accurate payroll processing.</p>

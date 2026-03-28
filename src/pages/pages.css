@@ -2245,7 +2245,17 @@
 }
 .auth-eye:hover { color: #0b044d; }
 
-.auth-link-sm { font-size: 12px; color: #8e1e18; text-decoration: none; font-weight: 500; }
+.auth-link-sm {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #8e1e18;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+}
 .auth-link-sm:hover { text-decoration: underline; }
 
 .auth-check {

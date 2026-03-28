@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../components/Icons';
 
 const employeeData = {
   id: 'JO-0042',
@@ -147,16 +148,16 @@ export default function JobOrderProfile() {
       {/* Stats Grid */}
       <section className="stats-grid" style={{ marginBottom: 24 }}>
         {[
-          { label: 'Months Served', value: calculateMonthsServed(), sub: 'Since Jan 2025', accent: '#0b044d', icon: '📅' },
-          { label: 'Contract Days Left', value: calculateDaysRemaining(), sub: 'Until Dec 31, 2025', accent: '#d9bb00', icon: '⏱' },
-          { label: 'Attendance Rate', value: '90%', sub: '19 days present', accent: '#15803d', icon: '🗓' },
-          { label: 'Trainings Completed', value: '2', sub: 'Total programs', accent: '#8e1e18', icon: '📚' },
+          { label: 'Months Served', value: calculateMonthsServed(), sub: 'Since Jan 2025', accent: '#0b044d', icon: 'calendar' },
+          { label: 'Contract Days Left', value: calculateDaysRemaining(), sub: 'Until Dec 31, 2025', accent: '#d9bb00', icon: 'clock' },
+          { label: 'Attendance Rate', value: '90%', sub: '19 days present', accent: '#15803d', icon: 'checkCircle' },
+          { label: 'Trainings Completed', value: '2', sub: 'Total programs', accent: '#8e1e18', icon: 'bookOpen' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '15' }}>
-                <span style={{ fontSize: 17 }}>{s.icon}</span>
+                <Icon name={s.icon} size={18} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value">{s.value}</h2>

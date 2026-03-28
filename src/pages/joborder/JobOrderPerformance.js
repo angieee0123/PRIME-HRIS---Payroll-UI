@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../components/Icons';
 
 const emp = {
   id: 'JO-0042',
@@ -169,16 +170,16 @@ export default function JobOrderPerformance() {
       {/* Stats Grid */}
       <section className="stats-grid" style={{ marginBottom: 24 }}>
         {[
-          { label: 'Latest Rating', value: latestRating.toFixed(1), sub: 'Apr-Jun 2025', accent: '#0b044d', icon: '⭐' },
-          { label: 'Average Rating', value: avgRating.toFixed(1), sub: 'All evaluations', accent: '#15803d', icon: '📊' },
-          { label: 'Total Evaluations', value: myEvaluations.length, sub: 'Completed reviews', accent: '#d9bb00', icon: '📝' },
-          { label: 'Active Goals', value: performanceGoals.length, sub: `${completedGoals} achieved`, accent: '#8e1e18', icon: '🎯' },
+          { label: 'Latest Rating', value: latestRating.toFixed(1), sub: 'Apr-Jun 2025', accent: '#0b044d', icon: 'award' },
+          { label: 'Average Rating', value: avgRating.toFixed(1), sub: 'All evaluations', accent: '#15803d', icon: 'trendingUp' },
+          { label: 'Total Evaluations', value: myEvaluations.length, sub: 'Completed reviews', accent: '#d9bb00', icon: 'clipboard' },
+          { label: 'Active Goals', value: performanceGoals.length, sub: `${completedGoals} achieved`, accent: '#8e1e18', icon: 'target' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '15' }}>
-                <span style={{ fontSize: 17 }}>{s.icon}</span>
+                <Icon name={s.icon} size={18} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value">{s.value}</h2>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from '../../components/Icons';
 
 const emp = {
   id: 'PGS-0115',
@@ -19,10 +20,10 @@ const initialLeaves = [
 ];
 
 const benefits = [
-  { label: 'GSIS Premium',      value: '₱3,046', sub: 'Monthly contribution',   color: '#0b044d', icon: '🏛' },
-  { label: 'PhilHealth',        value: '₱850',   sub: 'Monthly contribution',   color: '#15803d', icon: '🏥' },
-  { label: 'Pag-IBIG',          value: '₱100',   sub: 'Monthly contribution',   color: '#8e1e18', icon: '🏠' },
-  { label: 'Withholding Tax',   value: '₱2,772', sub: 'Monthly deduction',      color: '#d9bb00', icon: '📄' },
+  { label: 'GSIS Premium',      value: '₱3,046', sub: 'Monthly contribution',   color: '#0b044d', icon: 'building' },
+  { label: 'PhilHealth',        value: '₱850',   sub: 'Monthly contribution',   color: '#15803d', icon: 'heart' },
+  { label: 'Pag-IBIG',          value: '₱100',   sub: 'Monthly contribution',   color: '#8e1e18', icon: 'building' },
+  { label: 'Withholding Tax',   value: '₱2,772', sub: 'Monthly deduction',      color: '#d9bb00', icon: 'fileText' },
 ];
 
 const leaveCredits = [
@@ -193,16 +194,16 @@ export default function MyLeaveAndBenefits({ searchQuery = '' }) {
       {/* Stats */}
       <div className="stats-grid" style={{ marginBottom: 24 }}>
         {[
-          { label: 'Total Leave Filed',  value: leaves.length,  sub: 'All time',          accent: '#0b044d', icon: '📋' },
-          { label: 'Total Days Used',    value: totalUsed,      sub: 'Across all types',  accent: '#8e1e18', icon: '📅' },
-          { label: 'Pending Requests',   value: totalPending,   sub: 'Awaiting approval', accent: '#d9bb00', icon: '⏱' },
-          { label: 'VL + SL Balance',    value: vlBalance + slBalance, sub: `${vlBalance} VL · ${slBalance} SL`, accent: '#15803d', icon: '✓' },
+          { label: 'Total Leave Filed',  value: leaves.length,  sub: 'All time',          accent: '#0b044d', icon: 'fileText' },
+          { label: 'Total Days Used',    value: totalUsed,      sub: 'Across all types',  accent: '#8e1e18', icon: 'calendar' },
+          { label: 'Pending Requests',   value: totalPending,   sub: 'Awaiting approval', accent: '#d9bb00', icon: 'clock' },
+          { label: 'VL + SL Balance',    value: vlBalance + slBalance, sub: `${vlBalance} VL · ${slBalance} SL`, accent: '#15803d', icon: 'checkCircle' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '15' }}>
-                <span style={{ fontSize: 17 }}>{s.icon}</span>
+                <Icon name={s.icon} size={18} color={s.accent} />
               </div>
             </div>
             <h2 className="stat-value">{s.value}</h2>
@@ -330,7 +331,7 @@ export default function MyLeaveAndBenefits({ searchQuery = '' }) {
                 <div className="stat-top">
                   <p className="stat-label">{b.label}</p>
                   <div className="stat-icon-wrap" style={{ background: b.color + '15' }}>
-                    <span style={{ fontSize: 18 }}>{b.icon}</span>
+                    <Icon name={b.icon} size={18} color={b.color} />
                   </div>
                 </div>
                 <h2 className="stat-value">{b.value}</h2>
