@@ -302,16 +302,20 @@ export default function Payroll({ searchQuery = '' }) {
       {/* Stats */}
       <div className="stats-grid" style={{ marginBottom: 20 }}>
         {[
-          { label: 'Gross Payroll',    value: peso(grossPayroll), sub: periodLabel,              accent: '#0b044d' },
-          { label: 'Total Net Pay',    value: peso(totalNet),     sub: 'After deductions',       accent: '#15803d' },
-          { label: 'Total Deductions', value: peso(totalDeduct),  sub: 'GSIS, PhilHealth etc',   accent: '#8e1e18' },
-          { label: 'Pending Records',  value: pendingCount,       sub: `${processedCount} processed`, accent: '#d9bb00' },
+          { label: 'Gross Payroll',    value: peso(grossPayroll), sub: periodLabel,              accent: '#0b044d',
+            icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><text x="4" y="18" fontSize="16" fontWeight="bold" fill="currentColor" stroke="none">₱</text></svg> },
+          { label: 'Total Net Pay',    value: peso(totalNet),     sub: 'After deductions',       accent: '#15803d',
+            icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><text x="4" y="18" fontSize="16" fontWeight="bold" fill="currentColor" stroke="none">₱</text></svg> },
+          { label: 'Total Deductions', value: peso(totalDeduct),  sub: 'GSIS, PhilHealth etc',   accent: '#8e1e18',
+            icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><text x="4" y="18" fontSize="16" fontWeight="bold" fill="currentColor" stroke="none">₱</text></svg> },
+          { label: 'Pending Records',  value: pendingCount,       sub: `${processedCount} processed`, accent: '#d9bb00',
+            icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '18' }}>
-                <span style={{ fontSize: 16 }}>💳</span>
+                {s.icon}
               </div>
             </div>
             <h2 className="stat-value" style={{ fontSize: 18 }}>{s.value}</h2>

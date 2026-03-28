@@ -18,10 +18,13 @@ const months = ['January','February','March','April','May','June','July','August
 const years  = ['2025','2024','2023'];
 
 const reportTypes = [
-  { id: 'payroll',    label: 'Payroll Summary',       icon: '💳' },
-  { id: 'department', label: 'Department Breakdown',  icon: '🏢' },
-  { id: 'deductions', label: 'Deductions Report',     icon: '📉' },
-  { id: 'headcount',  label: 'Headcount Report',      icon: '👥' },
+  { id: 'payroll',      label: 'Payroll Summary',       icon: '💳' },
+  { id: 'department',   label: 'Department Breakdown',  icon: '🏢' },
+  { id: 'deductions',   label: 'Deductions Report',     icon: '📉' },
+  { id: 'headcount',    label: 'Headcount Report',      icon: '👥' },
+  { id: 'recruitment',  label: 'Recruitment Report',    icon: '📝' },
+  { id: 'training',     label: 'Training Report',       icon: '🎯' },
+  { id: 'performance',  label: 'Performance Report',    icon: '⭐' },
 ];
 
 export default function Reports() {
@@ -373,6 +376,215 @@ export default function Reports() {
 
           <div className="table-footer">
             <p>Showing <strong>{filtered.length}</strong> of <strong>{reportData.length}</strong> records</p>
+          </div>
+        </section>
+      )}
+
+      {/* ── Recruitment Report ── */}
+      {activeReport === 'recruitment' && (
+        <section className="table-section">
+          <div className="table-header">
+            <div>
+              <h3 className="table-title">Recruitment Report</h3>
+              <p className="table-sub">Job postings and applicant statistics · {year}</p>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14, padding: '0 0 20px' }}>
+            {[
+              { label: 'Total Job Postings', value: '12', color: '#0b044d' },
+              { label: 'Open Positions', value: '8', color: '#15803d' },
+              { label: 'Total Applicants', value: '145', color: '#d9bb00' },
+              { label: 'Hired', value: '6', color: '#1a6e3c' },
+            ].map((s, i) => (
+              <div key={i} style={{ background: '#fff', border: '1.5px solid #eceaf8', borderRadius: 12, padding: '16px 18px' }}>
+                <p style={{ fontSize: 11.5, color: '#9999bb', fontWeight: 600, marginBottom: 6 }}>{s.label}</p>
+                <p style={{ fontSize: 28, fontWeight: 800, color: s.color }}>{s.value}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="table-wrapper">
+            <table className="payroll-table">
+              <thead>
+                <tr>
+                  <th>Job ID</th>
+                  <th>Position</th>
+                  <th>Department</th>
+                  <th>Applicants</th>
+                  <th>Status</th>
+                  <th>Posted Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="emp-id">JOB-001</td>
+                  <td className="emp-name">Administrative Officer IV</td>
+                  <td><span className="dept-tag">Office of the Mayor</span></td>
+                  <td style={{ fontWeight: 600, color: '#0b044d', textAlign: 'center' }}>12</td>
+                  <td><span className="badge-status processed">Open</span></td>
+                  <td style={{ fontSize: 12.5, color: '#6b6a8a' }}>Jun 1, 2025</td>
+                </tr>
+                <tr>
+                  <td className="emp-id">JOB-002</td>
+                  <td className="emp-name">Municipal Engineer II</td>
+                  <td><span className="dept-tag">Office of the Mun. Engineer</span></td>
+                  <td style={{ fontWeight: 600, color: '#0b044d', textAlign: 'center' }}>8</td>
+                  <td><span className="badge-status processed">Open</span></td>
+                  <td style={{ fontSize: 12.5, color: '#6b6a8a' }}>Jun 5, 2025</td>
+                </tr>
+                <tr>
+                  <td className="emp-id">JOB-003</td>
+                  <td className="emp-name">Nurse II</td>
+                  <td><span className="dept-tag">Municipal Health Office</span></td>
+                  <td style={{ fontWeight: 600, color: '#0b044d', textAlign: 'center' }}>24</td>
+                  <td><span className="badge-status on-hold">Closed</span></td>
+                  <td style={{ fontSize: 12.5, color: '#6b6a8a' }}>May 15, 2025</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {/* ── Training Report ── */}
+      {activeReport === 'training' && (
+        <section className="table-section">
+          <div className="table-header">
+            <div>
+              <h3 className="table-title">Training & Development Report</h3>
+              <p className="table-sub">Training programs and participation · {year}</p>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14, padding: '0 0 20px' }}>
+            {[
+              { label: 'Total Programs', value: '15', color: '#0b044d' },
+              { label: 'Ongoing', value: '5', color: '#15803d' },
+              { label: 'Total Participants', value: '283', color: '#d9bb00' },
+              { label: 'Completed', value: '8', color: '#1a6e3c' },
+            ].map((s, i) => (
+              <div key={i} style={{ background: '#fff', border: '1.5px solid #eceaf8', borderRadius: 12, padding: '16px 18px' }}>
+                <p style={{ fontSize: 11.5, color: '#9999bb', fontWeight: 600, marginBottom: 6 }}>{s.label}</p>
+                <p style={{ fontSize: 28, fontWeight: 800, color: s.color }}>{s.value}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="table-wrapper">
+            <table className="payroll-table">
+              <thead>
+                <tr>
+                  <th>Training ID</th>
+                  <th>Program Title</th>
+                  <th>Type</th>
+                  <th>Participants</th>
+                  <th>Status</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="emp-id">TRN-001</td>
+                  <td className="emp-name">Leadership Development Program</td>
+                  <td><span className="badge-emptype">Leadership</span></td>
+                  <td style={{ fontWeight: 600, color: '#0b044d', textAlign: 'center' }}>25 / 30</td>
+                  <td><span className="badge-status processed">Ongoing</span></td>
+                  <td style={{ fontSize: 12.5, color: '#6b6a8a' }}>Jun 15 - Jul 15</td>
+                </tr>
+                <tr>
+                  <td className="emp-id">TRN-002</td>
+                  <td className="emp-name">Digital Literacy Training</td>
+                  <td><span className="badge-emptype">Technical</span></td>
+                  <td style={{ fontWeight: 600, color: '#0b044d', textAlign: 'center' }}>18 / 20</td>
+                  <td><span className="badge-status processed">Ongoing</span></td>
+                  <td style={{ fontSize: 12.5, color: '#6b6a8a' }}>Jun 20 - Jun 30</td>
+                </tr>
+                <tr>
+                  <td className="emp-id">TRN-003</td>
+                  <td className="emp-name">Customer Service Excellence</td>
+                  <td><span className="badge-emptype">Soft Skills</span></td>
+                  <td style={{ fontWeight: 600, color: '#0b044d', textAlign: 'center' }}>30 / 30</td>
+                  <td><span className="badge-status on-hold">Completed</span></td>
+                  <td style={{ fontSize: 12.5, color: '#6b6a8a' }}>May 10 - May 20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {/* ── Performance Report ── */}
+      {activeReport === 'performance' && (
+        <section className="table-section">
+          <div className="table-header">
+            <div>
+              <h3 className="table-title">Performance Evaluation Report</h3>
+              <p className="table-sub">Employee performance ratings · Jan-Jun {year}</p>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14, padding: '0 0 20px' }}>
+            {[
+              { label: 'Total Evaluations', value: '348', color: '#0b044d' },
+              { label: 'Completed', value: '336', color: '#15803d' },
+              { label: 'Pending', value: '12', color: '#d9bb00' },
+              { label: 'Average Rating', value: '4.7', color: '#1a6e3c' },
+            ].map((s, i) => (
+              <div key={i} style={{ background: '#fff', border: '1.5px solid #eceaf8', borderRadius: 12, padding: '16px 18px' }}>
+                <p style={{ fontSize: 11.5, color: '#9999bb', fontWeight: 600, marginBottom: 6 }}>{s.label}</p>
+                <p style={{ fontSize: 28, fontWeight: 800, color: s.color }}>{s.value}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="table-wrapper">
+            <table className="payroll-table">
+              <thead>
+                <tr>
+                  <th>Employee ID</th>
+                  <th>Name</th>
+                  <th>Department</th>
+                  <th>Rating</th>
+                  <th>Status</th>
+                  <th>Period</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="emp-id">PGS-0041</td>
+                  <td className="emp-name">Maria B. Santos</td>
+                  <td><span className="dept-tag">Office of the Mayor</span></td>
+                  <td style={{ fontWeight: 700, color: '#15803d', textAlign: 'center' }}>4.8 / 5.0</td>
+                  <td><span className="badge-status processed">Completed</span></td>
+                  <td style={{ fontSize: 12.5, color: '#6b6a8a' }}>Jan-Jun 2025</td>
+                </tr>
+                <tr>
+                  <td className="emp-id">PGS-0082</td>
+                  <td className="emp-name">Juan P. dela Cruz</td>
+                  <td><span className="dept-tag">Office of the Mun. Engineer</span></td>
+                  <td style={{ fontWeight: 700, color: '#15803d', textAlign: 'center' }}>4.5 / 5.0</td>
+                  <td><span className="badge-status processed">Completed</span></td>
+                  <td style={{ fontSize: 12.5, color: '#6b6a8a' }}>Jan-Jun 2025</td>
+                </tr>
+                <tr>
+                  <td className="emp-id">PGS-0115</td>
+                  <td className="emp-name">Ana R. Reyes</td>
+                  <td><span className="dept-tag">Municipal Health Office</span></td>
+                  <td style={{ fontWeight: 700, color: '#15803d', textAlign: 'center' }}>4.9 / 5.0</td>
+                  <td><span className="badge-status processed">Completed</span></td>
+                  <td style={{ fontSize: 12.5, color: '#6b6a8a' }}>Jan-Jun 2025</td>
+                </tr>
+                <tr>
+                  <td className="emp-id">PGS-0267</td>
+                  <td className="emp-name">Liza G. Gomez</td>
+                  <td><span className="dept-tag">MSWD – Pagsanjan</span></td>
+                  <td style={{ fontSize: 12.5, color: '#9999bb', textAlign: 'center' }}>Not rated</td>
+                  <td><span className="badge-status pending">Pending</span></td>
+                  <td style={{ fontSize: 12.5, color: '#6b6a8a' }}>Jan-Jun 2025</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </section>
       )}

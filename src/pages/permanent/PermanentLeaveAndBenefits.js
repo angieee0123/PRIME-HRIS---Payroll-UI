@@ -176,12 +176,12 @@ export default function MyLeaveAndBenefits({ searchQuery = '' }) {
       {showFile && <FileLeaveModal onClose={() => setShowFile(false)} onSave={handleSave} />}
 
       {/* Welcome Banner */}
-      <div className="welcome-banner" style={{ marginBottom: 22 }}>
+      <div className="welcome-banner" style={{ marginBottom: 24 }}>
         <div className="banner-left">
-          <div className="emp-avatar" style={{ width: 46, height: 46, fontSize: 16, background: '#8e1e18', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, flexShrink: 0 }}>AR</div>
+          <div style={{ width: 46, height: 46, borderRadius: '50%', background: '#8e1e18', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 16, flexShrink: 0 }}>AR</div>
           <div>
-            <h2 style={{ fontSize: 16, fontWeight: 700, color: '#fff', margin: 0 }}>My Leave & Benefits</h2>
-            <p style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.55)', margin: 0 }}>{emp.position} · {emp.dept} · {emp.id}</p>
+            <h2 style={{ fontSize: 16, fontWeight: 700, color: '#fff', margin: 0 }}>{emp.name}</h2>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: 0 }}>{emp.position} · {emp.dept} · {emp.id}</p>
           </div>
         </div>
         <div className="banner-right">
@@ -191,21 +191,21 @@ export default function MyLeaveAndBenefits({ searchQuery = '' }) {
       </div>
 
       {/* Stats */}
-      <div className="stats-grid" style={{ marginBottom: 20 }}>
+      <div className="stats-grid" style={{ marginBottom: 24 }}>
         {[
-          { label: 'Total Leave Filed',  value: leaves.length,  sub: 'All time',          accent: '#0b044d' },
-          { label: 'Total Days Used',    value: totalUsed,      sub: 'Across all types',  accent: '#8e1e18' },
-          { label: 'Pending Requests',   value: totalPending,   sub: 'Awaiting approval', accent: '#d9bb00' },
-          { label: 'VL + SL Balance',    value: vlBalance + slBalance, sub: `${vlBalance} VL · ${slBalance} SL`, accent: '#15803d' },
+          { label: 'Total Leave Filed',  value: leaves.length,  sub: 'All time',          accent: '#0b044d', icon: '📋' },
+          { label: 'Total Days Used',    value: totalUsed,      sub: 'Across all types',  accent: '#8e1e18', icon: '📅' },
+          { label: 'Pending Requests',   value: totalPending,   sub: 'Awaiting approval', accent: '#d9bb00', icon: '⏱' },
+          { label: 'VL + SL Balance',    value: vlBalance + slBalance, sub: `${vlBalance} VL · ${slBalance} SL`, accent: '#15803d', icon: '✓' },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
-              <div className="stat-icon-wrap" style={{ background: s.accent + '18' }}>
-                <span style={{ fontSize: 16 }}>📋</span>
+              <div className="stat-icon-wrap" style={{ background: s.accent + '15' }}>
+                <span style={{ fontSize: 17 }}>{s.icon}</span>
               </div>
             </div>
-            <h2 className="stat-value" style={{ fontSize: 22 }}>{s.value}</h2>
+            <h2 className="stat-value">{s.value}</h2>
             <div className="stat-footer">
               <span className="stat-dot" style={{ background: s.accent }} />
               <p className="stat-sub">{s.sub}</p>
@@ -215,15 +215,15 @@ export default function MyLeaveAndBenefits({ searchQuery = '' }) {
       </div>
 
       {/* Tabs */}
-      <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1.5px solid #eceaf8' }}>
+      <div style={{ display: 'flex', gap: 4, marginBottom: 24, borderBottom: '1.5px solid #eceaf8' }}>
         {[{ id: 'leave', label: 'My Leave Requests' }, { id: 'credits', label: 'Leave Credits' }, { id: 'benefits', label: 'My Benefits' }].map(t => (
           <button key={t.id} onClick={() => setTab(t.id)} style={{
             background: 'none', border: 'none', cursor: 'pointer',
             padding: '10px 20px', fontFamily: 'Poppins, sans-serif',
-            fontSize: 13.5, fontWeight: 600,
+            fontSize: 13, fontWeight: 600,
             color: tab === t.id ? '#0b044d' : '#9999bb',
             borderBottom: tab === t.id ? '2.5px solid #0b044d' : '2.5px solid transparent',
-            marginBottom: -1.5,
+            marginBottom: -1.5, transition: 'all 0.2s'
           }}>{t.label}</button>
         ))}
       </div>
@@ -324,13 +324,13 @@ export default function MyLeaveAndBenefits({ searchQuery = '' }) {
       {tab === 'benefits' && (
         <div>
           {/* Benefit cards */}
-          <div className="stats-grid" style={{ marginBottom: 20 }}>
+          <div className="stats-grid" style={{ marginBottom: 24 }}>
             {benefits.map((b, i) => (
               <div className="stat-card" key={i}>
                 <div className="stat-top">
                   <p className="stat-label">{b.label}</p>
-                  <div className="stat-icon-wrap" style={{ background: b.color + '18' }}>
-                    <span style={{ fontSize: 17 }}>{b.icon}</span>
+                  <div className="stat-icon-wrap" style={{ background: b.color + '15' }}>
+                    <span style={{ fontSize: 18 }}>{b.icon}</span>
                   </div>
                 </div>
                 <h2 className="stat-value">{b.value}</h2>

@@ -174,7 +174,7 @@ export default function MyAttendance({ searchQuery = '' }) {
       {/* Banner */}
       <div className="welcome-banner" style={{ marginBottom: 24 }}>
         <div className="banner-left">
-          <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#8e1e18', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 16, flexShrink: 0 }}>AR</div>
+          <div style={{ width: 46, height: 46, borderRadius: '50%', background: '#8e1e18', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 16, flexShrink: 0 }}>AR</div>
           <div>
             <h2 style={{ fontSize: 16, fontWeight: 700, color: '#fff', margin: 0 }}>{emp.name}</h2>
             <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: 0 }}>{emp.position} · {emp.dept} · {emp.id}</p>
@@ -198,7 +198,7 @@ export default function MyAttendance({ searchQuery = '' }) {
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
               <div className="stat-icon-wrap" style={{ background: s.accent + '18' }}>
-                <span style={{ fontSize: 16 }}>🗓</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
               </div>
             </div>
             <h2 className="stat-value">{s.value}</h2>

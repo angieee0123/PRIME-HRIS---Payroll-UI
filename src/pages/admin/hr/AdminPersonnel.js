@@ -75,9 +75,9 @@ function ProfileModal({ emp, idx, onClose, onEdit, onToggleStatus }) {
         </div>
 
         <div className="pmodal-tabs">
-          {['info', 'employment', 'gov-ids'].map(t => (
+          {['info', 'employment', 'gov-ids', 'development'].map(t => (
             <button key={t} className={`pmodal-tab ${tab === t ? 'active' : ''}`} onClick={() => setTab(t)}>
-              {t === 'info' ? 'Personal Info' : t === 'employment' ? 'Employment' : 'Gov. IDs'}
+              {t === 'info' ? 'Personal Info' : t === 'employment' ? 'Employment' : t === 'gov-ids' ? 'Gov. IDs' : 'Development'}
             </button>
           ))}
         </div>
@@ -108,6 +108,50 @@ function ProfileModal({ emp, idx, onClose, onEdit, onToggleStatus }) {
               <div className="pmodal-field"><span>PhilHealth No.</span><strong>{emp.philhealth}</strong></div>
               <div className="pmodal-field"><span>Pag-IBIG No.</span><strong>{emp.pagibig}</strong></div>
               <div className="pmodal-field"><span>TIN</span><strong>{emp.tin}</strong></div>
+            </div>
+          )}
+          {tab === 'development' && (
+            <div>
+              <p style={{ fontSize: '10.5px', fontWeight: '700', color: '#aaa8cc', letterSpacing: '1.2px', marginBottom: '12px' }}>PERFORMANCE</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '20px' }}>
+                <div style={{ background: '#f7f6ff', borderRadius: '10px', padding: '14px 16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'linear-gradient(135deg, #6b3fa0 0%, #8b5cf6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: '11px', color: '#9999bb', marginBottom: '2px' }}>Latest Rating</p>
+                    <p style={{ fontSize: '16px', fontWeight: '800', color: '#6b3fa0' }}>4.8 / 5.0</p>
+                  </div>
+                </div>
+                <div style={{ background: '#f7f6ff', borderRadius: '10px', padding: '14px 16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'linear-gradient(135deg, #15803d 0%, #22c55e 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: '11px', color: '#9999bb', marginBottom: '2px' }}>Evaluation Period</p>
+                    <p style={{ fontSize: '13px', fontWeight: '700', color: '#0b044d' }}>Jan–Jun 2025</p>
+                    <span className="badge-status processed" style={{ fontSize: '10px', marginTop: '4px', display: 'inline-block' }}>Completed</span>
+                  </div>
+                </div>
+              </div>
+              <p style={{ fontSize: '10.5px', fontWeight: '700', color: '#aaa8cc', letterSpacing: '1.2px', marginBottom: '10px' }}>TRAINING HISTORY</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {[
+                  { title: 'Leadership Development Program', date: 'Jun 2025' },
+                  { title: 'Customer Service Excellence', date: 'May 2025' },
+                ].map((t, i) => (
+                  <div key={i} style={{ background: '#f7f6ff', borderRadius: '10px', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ width: '36px', height: '36px', borderRadius: '9px', background: 'linear-gradient(135deg, #d9bb00 0%, #fbbf24 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <p style={{ fontSize: '12.5px', fontWeight: '600', color: '#0b044d', marginBottom: '2px' }}>{t.title}</p>
+                      <p style={{ fontSize: '11px', color: '#9999bb' }}>Completed · {t.date}</p>
+                    </div>
+                    <span className="badge-status processed" style={{ fontSize: '10px' }}>Done</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -324,17 +368,19 @@ export default function Personnel({ searchQuery = '' }) {
       {/* Stats */}
       <div className="stats-grid" style={{ marginBottom: 20 }}>
         {[
-          { label: 'Total Personnel',  value: personnel.length, sub: 'All records',         accent: '#0b044d' },
-          { label: 'Active',           value: totalActive,      sub: 'Currently active',    accent: '#15803d' },
-          { label: 'Inactive',         value: totalInactive,    sub: 'Deactivated accounts',accent: '#8e1e18' },
-          { label: 'Permanent',        value: totalPermanent,   sub: 'Permanent employees', accent: '#d9bb00' },
+          { label: 'Total Personnel',  value: personnel.length, sub: 'All records',          accent: '#0b044d',
+            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
+          { label: 'Active',           value: totalActive,      sub: 'Currently active',     accent: '#15803d',
+            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> },
+          { label: 'Inactive',         value: totalInactive,    sub: 'Deactivated accounts', accent: '#8e1e18',
+            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg> },
+          { label: 'Permanent',        value: totalPermanent,   sub: 'Permanent employees',  accent: '#d9bb00',
+            icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> },
         ].map((s, i) => (
           <div className="stat-card" key={i}>
             <div className="stat-top">
               <p className="stat-label">{s.label}</p>
-              <div className="stat-icon-wrap" style={{ background: s.accent + '18' }}>
-                <span style={{ fontSize: 16 }}>👤</span>
-              </div>
+              <div className="stat-icon-wrap" style={{ background: s.accent + '15', color: s.accent }}>{s.icon}</div>
             </div>
             <h2 className="stat-value">{s.value}</h2>
             <div className="stat-footer">
@@ -365,7 +411,7 @@ export default function Personnel({ searchQuery = '' }) {
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Export
             </button>
-            <button className="modal-btn-primary" style={{ padding: '7px 16px', fontSize: 12.5 }} onClick={() => setAddOpen(true)}>
+            <button className="modal-btn-primary" style={{ padding: '8px 18px', fontSize: 12.5, display: 'flex', alignItems: 'center', gap: '6px' }} onClick={() => setAddOpen(true)}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               Add Employee
             </button>

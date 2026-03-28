@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './pages.css';
+import '../pages.css';
 
 export default function Login({ onLogin, onBack, onSignup }) {
   const [show, setShow]         = useState(false);

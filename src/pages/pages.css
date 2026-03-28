@@ -961,6 +961,21 @@
   z-index: 998; overflow: hidden;
 }
 
+@media (max-width: 480px) {
+  .chatbot-window {
+    width: calc(100vw - 56px);
+    right: 28px;
+    bottom: 96px;
+    max-height: calc(100vh - 140px);
+  }
+  .chat-fab {
+    bottom: 20px;
+    right: 20px;
+    width: 52px;
+    height: 52px;
+  }
+}
+
 .chatbot-header {
   background: #0b044d; padding: 14px 16px;
   display: flex; align-items: center;

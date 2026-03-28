@@ -159,7 +159,7 @@ export default function JobOrderPayslip({ searchQuery = '' }) {
       {/* Banner */}
       <div className="welcome-banner" style={{ marginBottom: 24 }}>
         <div className="banner-left">
-          <div style={{ width: 48, height: 48, borderRadius: '50%', background: emp.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 16, flexShrink: 0 }}>{emp.initials}</div>
+          <div style={{ width: 46, height: 46, borderRadius: '50%', background: emp.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 16, flexShrink: 0 }}>{emp.initials}</div>
           <div>
             <h2 style={{ fontSize: 16, fontWeight: 700, color: '#fff', margin: 0 }}>{emp.name}</h2>
             <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: 0 }}>{emp.position} · {emp.dept} · {emp.id}</p>

@@ -1,23 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const emp = {
+  id: 'PGS-0115',
+  name: 'Ana R. Reyes',
+  position: 'Nurse II',
+  dept: 'Municipal Health Office',
+  leaveCredits: { vacation: 12.5, sick: 10, total: 22.5 },
+  attendance: { present: 20, late: 1, absent: 0, total: 21 },
+};
+
+const joEmp = {
   id: 'JO-0042',
   name: 'Juan D. Cruz',
-  initials: 'JD',
   position: 'Utility Worker I',
   dept: 'General Services Office',
-  empType: 'Job Order',
-  contractStart: 'Jan 1, 2025',
-  contractEnd: 'Dec 31, 2025',
+  attendance: { present: 19, late: 2, absent: 0, total: 21 },
 };
 
 const recentPayslips = [
-  { period: 'Jun 16–30, 2025', net: '₱11,250.00', status: 'Pending',   date: 'Jun 30, 2025' },
-  { period: 'Jun 1–15, 2025',  net: '₱11,250.00', status: 'Processed', date: 'Jun 15, 2025' },
-  { period: 'May 16–31, 2025', net: '₱11,250.00', status: 'Processed', date: 'May 31, 2025' },
+  { period: 'Jun 16–30, 2025', net: '₱13,537.50', status: 'Pending',   date: 'Jun 30, 2025' },
+  { period: 'Jun 1–15, 2025',  net: '₱13,537.50', status: 'Processed', date: 'Jun 15, 2025' },
+  { period: 'May 16–31, 2025', net: '₱13,537.50', status: 'Processed', date: 'May 31, 2025' },
 ];
 
+/* ── Payslip Modal ── */
 function PayslipModal({ onClose }) {
+  useEffect(() => {
+    const h = e => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
+  }, [onClose]);
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-box" onClick={e => e.stopPropagation()}>
@@ -33,20 +46,21 @@ function PayslipModal({ onClose }) {
         </div>
         <div className="modal-body">
           <div className="modal-emp-row">
-            <div className="emp-avatar lg" style={{ background: '#1a6e3c' }}>JD</div>
+            <div className="emp-avatar lg" style={{ background: '#8e1e18' }}>AR</div>
             <div>
               <p className="modal-emp-id">{emp.id}</p>
               <span className="badge-status pending">Pending</span>
             </div>
           </div>
           <div className="modal-section-label">EARNINGS</div>
-          <div className="modal-row"><span>Basic Semi-Monthly Pay</span><strong>₱12,500.00</strong></div>
+          <div className="modal-row"><span>Basic Semi-Monthly Pay</span><strong>₱16,921.50</strong></div>
           <div className="modal-section-label" style={{ marginTop: 16 }}>DEDUCTIONS</div>
-          <div className="modal-row"><span>PhilHealth</span><span className="modal-deduct">₱375</span></div>
-          <div className="modal-row"><span>Pag-IBIG</span><span className="modal-deduct">₱100</span></div>
-          <div className="modal-row"><span>Withholding Tax</span><span className="modal-deduct">₱775</span></div>
-          <div className="modal-row total"><span>Total Deductions</span><span className="modal-deduct">₱1,250</span></div>
-          <div className="modal-net-row"><span>NET PAY</span><strong>₱11,250.00</strong></div>
+          <div className="modal-row"><span>GSIS Premium</span><span className="modal-deduct">₱1,523</span></div>
+          <div className="modal-row"><span>PhilHealth</span><span className="modal-deduct">₱425</span></div>
+          <div className="modal-row"><span>Pag-IBIG</span><span className="modal-deduct">₱50</span></div>
+          <div className="modal-row"><span>Withholding Tax</span><span className="modal-deduct">₱1,386</span></div>
+          <div className="modal-row total"><span>Total Deductions</span><span className="modal-deduct">₱3,384</span></div>
+          <div className="modal-net-row"><span>NET PAY</span><strong>₱13,537.50</strong></div>
         </div>
         <div className="modal-footer">
           <button className="modal-btn-ghost" onClick={onClose}>Close</button>
@@ -60,24 +74,34 @@ function PayslipModal({ onClose }) {
   );
 }
 
-export default function JobOrderDashboard({ notifs, setNotifs }) {
+export default function EmployeeDashboard({ role, notifs, setNotifs }) {
   const [showPayslip, setShowPayslip] = useState(false);
 
+  const isJobOrder = role === 'job-order';
+  const person = isJobOrder ? joEmp : emp;
+  const initials = isJobOrder ? 'JD' : 'AR';
+  const avatarColor = isJobOrder ? '#1a6e3c' : '#8e1e18';
+  const attendancePct = Math.round((person.attendance.present / person.attendance.total) * 100);
   const unread = notifs ? notifs.filter(n => !n.read).length : 0;
 
   const stats = [
-    { label: 'Basic Pay',      value: '₱12,500.00', sub: 'Jun 16–30, 2025',       icon: '💳', accent: '#0b044d' },
-    { label: 'Net Pay',        value: '₱11,250.00', sub: 'After deductions',       icon: '✅', accent: '#15803d' },
-    { label: 'Contract End',   value: 'Dec 31',     sub: emp.contractEnd,          icon: '📄', accent: '#1a6e3c' },
-    { label: 'Attendance',     value: '90%',        sub: '19 days present',        icon: '🗓', accent: '#8e1e18' },
+    { label: 'Basic Pay',     value: '₱16,921.50',           sub: 'Jun 16–30, 2025',      icon: '💳', accent: '#0b044d' },
+    { label: 'Net Pay',       value: '₱13,537.50',           sub: 'After deductions',      icon: '✅', accent: '#15803d' },
+    ...(!isJobOrder ? [{ label: 'Leave Credits', value: emp.leaveCredits.total, sub: `${emp.leaveCredits.vacation} vacation · ${emp.leaveCredits.sick} sick`, icon: '📋', accent: '#d9bb00' }] : []),
+    { label: 'Attendance',    value: `${attendancePct}%`,    sub: `${person.attendance.present} days present`, icon: '🗓', accent: '#8e1e18' },
   ];
 
   const quickActions = [
-    { icon: '💳', label: 'View Payslip',    action: () => setShowPayslip(true) },
+    { icon: '💳', label: 'View Payslip',   action: () => setShowPayslip(true) },
+    ...(!isJobOrder ? [{ icon: '📋', label: 'File Leave', action: () => {} }] : []),
     { icon: '🗓', label: 'View Attendance', action: () => {} },
     { icon: '👤', label: 'My Profile',      action: () => {} },
-    { icon: '🔒', label: 'Security',        action: () => {} },
   ];
+
+  // Filter out leave-related notifications for job-order
+  const visibleNotifs = isJobOrder
+    ? (notifs || []).filter(n => !n.title.toLowerCase().includes('leave'))
+    : (notifs || []);
 
   return (
     <div>
@@ -86,19 +110,19 @@ export default function JobOrderDashboard({ notifs, setNotifs }) {
       {/* Welcome Banner */}
       <div className="welcome-banner" style={{ marginBottom: 24 }}>
         <div className="banner-left">
-          <div style={{ width: 46, height: 46, fontSize: 16, background: '#1a6e3c', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, flexShrink: 0 }}>JD</div>
+          <div style={{ width: 46, height: 46, borderRadius: '50%', background: avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 16, flexShrink: 0 }}>{initials}</div>
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 700, color: '#ffffff', margin: 0 }}>Welcome back, Juan!</h2>
-            <p style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.55)', margin: 0 }}>{emp.position} · {emp.dept} · {emp.id}</p>
+            <h2 style={{ fontSize: 17, fontWeight: 700, color: '#ffffff', margin: 0 }}>Welcome back, {person.name.split(' ')[0]}!</h2>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: 0 }}>{person.position} · {person.dept} · {person.id}</p>
           </div>
         </div>
         <div className="banner-right">
           <div className="banner-badge"><span className="banner-badge-dot" />June 2025 Payroll Active</div>
-          <div className="banner-badge outline">Contract Until: Dec 31, 2025</div>
+          <div className="banner-badge outline">Next Pay: Jun 30</div>
         </div>
       </div>
 
-      {/* Stats */}
+      {/* Stats Row */}
       <section className="stats-grid" style={{ marginBottom: 24 }}>
         {stats.map((s, i) => (
           <div className="stat-card" key={i}>
@@ -165,12 +189,12 @@ export default function JobOrderDashboard({ notifs, setNotifs }) {
               )}
             </div>
             <div style={{ padding: '0 4px 8px' }}>
-              {(notifs || []).length === 0 && (
+              {visibleNotifs.length === 0 && (
                 <p style={{ fontSize: 13, color: '#aaa8cc', padding: '12px 16px' }}>No notifications.</p>
               )}
-              {(notifs || []).map(n => (
+              {visibleNotifs.map(n => (
                 <div key={n.id} style={{ display: 'flex', gap: 12, padding: '12px 16px', borderBottom: '1px solid #f4f3ff', opacity: n.read ? 0.55 : 1 }}>
-                  <div style={{ width: 8, height: 8, borderRadius: '50%', marginTop: 5, flexShrink: 0, background: n.type === 'warning' ? '#d9bb00' : '#1a6e3c' }} />
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', marginTop: 5, flexShrink: 0, background: n.type === 'warning' ? '#d9bb00' : '#0b044d' }} />
                   <div>
                     <p style={{ fontSize: 13, fontWeight: 600, color: '#0b044d', marginBottom: 2 }}>{n.title}</p>
                     <p style={{ fontSize: 12, color: '#6b6a8a', marginBottom: 3 }}>{n.desc}</p>
@@ -190,7 +214,7 @@ export default function JobOrderDashboard({ notifs, setNotifs }) {
                 {quickActions.map((a, i) => (
                   <button key={i} onClick={a.action}
                     style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '10px 14px', border: '1.5px solid #eceaf8', borderRadius: 10, background: '#fafafe', cursor: 'pointer', fontSize: 13, fontWeight: 600, color: '#0b044d', fontFamily: 'Poppins, sans-serif', transition: 'border-color 0.18s' }}
-                    onMouseEnter={e => e.currentTarget.style.borderColor = '#1a6e3c'}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = '#0b044d'}
                     onMouseLeave={e => e.currentTarget.style.borderColor = '#eceaf8'}
                   >
                     <span style={{ fontSize: 18 }}>{a.icon}</span>

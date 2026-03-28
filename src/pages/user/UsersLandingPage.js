@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './pages.css';
+import '../pages.css';
 
 const services = [
   { icon: '🏛️', title: 'Business Permits',       desc: 'Apply and renew business permits online through the Municipal Business Office.' },
